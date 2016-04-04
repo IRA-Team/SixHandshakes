@@ -69,9 +69,12 @@ public class RequestService extends Service {
 
         worker = new Thread(() -> {
             firstStepProcessing();
-            secondStepProcessing();
-            thirdStepProcessing();
-            fourthStepProcessing();
+            if (resultPath == null)
+                secondStepProcessing();
+            if (resultPath == null)
+                thirdStepProcessing();
+            if (resultPath == null)
+                fourthStepProcessing();
             notifyNothingFound();
         });
         worker.start();

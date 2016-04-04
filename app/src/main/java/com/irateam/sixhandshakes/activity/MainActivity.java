@@ -66,7 +66,19 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         targetName = (TextView) findViewById(R.id.target_name);
 
         fab.setOnClickListener(v -> {
+            requestService.setListener(new RequestService.ResultListener() {
+                @Override
+                public void onPathFound(int[] ids) {
+                    System.out.println("FOUND");
+                }
+
+                @Override
+                public void onNothingFound() {
+
+                }
+            });
             requestService.start(selfUser.id, targetUser.id);
+            fab.hide();
         });
 
         vk.setOnClickListener((v) -> {
@@ -117,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                 startService(new Intent(MainActivity.this, RequestService.class));
                 bindService(new Intent(MainActivity.this, RequestService.class), MainActivity.this, 0);
 
-                VKApi.users().get(VKParameters.from(VKApiConst.FIELDS, "photo_400_orig")).executeSyncWithListener(new VKRequest.VKRequestListener() {
+                VKApi.users().get(VKParameters.from(VKApiConst.FIELDS, "photo_200")).executeSyncWithListener(new VKRequest.VKRequestListener() {
                     @Override
                     public void onComplete(VKResponse response) {
                         try {
@@ -125,10 +137,12 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                             selfUser.id = jsonArray.getJSONObject(0).getInt("id");
                             selfUser.first_name = jsonArray.getJSONObject(0).getString("first_name");
                             selfUser.last_name = jsonArray.getJSONObject(0).getString("last_name");
-                            selfUser.photo_400_orig = jsonArray.getJSONObject(0).getString("photo_400_orig");
+                            selfUser.photo_200 = jsonArray.getJSONObject(0).getString("photo_200");
                             selfName.setText(selfUser.first_name + " " + selfUser.last_name);
-                            ViewGroup view = (ViewGroup) findViewById(R.id.target);
-                            ImageLoader.getInstance().displayImage(selfUser.photo_400_orig, (ImageView) view.findViewById(R.id.image), options);
+                            ViewGroup view = (ViewGroup) findViewById(R.id.self);
+                            view.post(() -> {
+                                ImageLoader.getInstance().displayImage(selfUser.photo_200, (ImageView) view.findViewById(R.id.self_image), options);
+                            });
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
