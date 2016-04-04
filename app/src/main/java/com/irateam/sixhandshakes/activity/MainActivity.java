@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.irateam.sixhandshakes.R;
 import com.irateam.sixhandshakes.service.RequestService;
@@ -29,12 +30,19 @@ import com.vk.sdk.api.VKError;
 import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
+import com.vk.sdk.api.model.VKApiUser;
 import com.vk.sdk.api.model.VKApiUserFull;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 public class MainActivity extends AppCompatActivity implements ServiceConnection {
 
     Button vk, github;
     FloatingActionButton fab;
+    TextView selfName, targetName;
+
+    VKApiUser selfUser, targetUser;
 
     DisplayImageOptions options;
 
@@ -49,9 +57,13 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                 .displayer(new RoundedBitmapDisplayer(10000))
                 .build();
 
+        selfUser = new VKApiUser();
+
         vk = (Button) findViewById(R.id.button_vk_login);
         github = (Button) findViewById(R.id.button_github);
         fab = (FloatingActionButton) findViewById(R.id.fab);
+        selfName = (TextView) findViewById(R.id.self_name);
+        targetName = (TextView) findViewById(R.id.target_name);
 
         vk.setOnClickListener((v) -> {
             VKSdk.login(MainActivity.this, VKScope.FRIENDS);
@@ -73,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         int id = item.getItemId();
         switch (id) {
             case android.R.id.home:
+                VKSdk.logout();
                 vk.setVisibility(View.VISIBLE);
                 github.setVisibility(View.VISIBLE);
                 fab.setVisibility(View.GONE);
@@ -99,10 +112,20 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                 startService(new Intent(MainActivity.this, RequestService.class));
                 bindService(new Intent(MainActivity.this, RequestService.class), MainActivity.this, 0);
 
-                VKApi.users().get(VKParameters.from(VKApiConst.FIELDS, "photo_400")).executeSyncWithListener(new VKRequest.VKRequestListener() {
+                VKApi.users().get(VKParameters.from(VKApiConst.FIELDS, "photo_400_orig")).executeSyncWithListener(new VKRequest.VKRequestListener() {
                     @Override
                     public void onComplete(VKResponse response) {
-
+                        try {
+                            JSONArray jsonArray = response.json.getJSONArray("response");
+                            user.id = jsonArray.getJSONObject(0).getInt("id");
+                            user.first_name = jsonArray.getJSONObject(0).getString("first_name");
+                            user.photo_400_orig = jsonArray.getJSONObject(0).getString("photo_400_orig");
+                            selfName.setText(user.first_name);
+                            ViewGroup view = (ViewGroup) findViewById(R.id.target);
+                            ImageLoader.getInstance().displayImage(user.photo_400_orig, (ImageView) view.findViewById(R.id.image), options);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
             }

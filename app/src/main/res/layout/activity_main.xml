@@ -26,15 +26,22 @@
             android:layout_marginTop="7dp" />
     </FrameLayout>
 
+    <TextView
+        android:id="@+id/self_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/self"/>
+
     <com.irateam.sixhandshakes.ui.LoadingStub
         android:id="@+id/loading_stub"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/self"
+        android:layout_below="@id/self_name"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="4dp" />
 
     <FrameLayout
+        android:id=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/loading_stub"
@@ -53,6 +60,13 @@
             android:layout_marginLeft="7dp"
             android:layout_marginTop="7dp" />
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/target_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_below=""/>
 
     <Button
         android:id="@+id/button_vk_login"
