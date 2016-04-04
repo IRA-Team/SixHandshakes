@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SixHandshakes</string>
+    <string name="vk">SIGN UP WITH VK</string>
+    <string name="github">GITHUB/IRA-TEAM</string>
 </resources>

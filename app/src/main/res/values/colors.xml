@@ -3,4 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="vk_button_background">#ffffff</color>
+    <color name="vk_button_text_color">#1e88e5</color>
+    <color name="github_button_background">#255b8a</color>
+    <color name="github_button_text_color">#ffffff</color>
 </resources>

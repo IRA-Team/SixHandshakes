@@ -8,4 +8,24 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ButtonLoginActivity">
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:paddingLeft">24dp</item>
+        <item name="android:drawablePadding">24dp</item>
+        <item name="android:height">@dimen/activity_main_buttons_height</item>
+        <item name="android:gravity">left|center_vertical</item>
+    </style>
+
+    <style name="ButtonLoginActivity.White">
+        <item name="android:background">@color/vk_button_background</item>
+        <item name="android:textColor">@color/vk_button_text_color</item>
+    </style>
+
+    <style name="ButtonLoginActivity.Blue">
+        <item name="android:background">@color/github_button_background</item>
+        <item name="android:textColor">@color/github_button_text_color</item>
+    </style>
+
 </resources>

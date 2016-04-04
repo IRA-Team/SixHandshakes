@@ -4,18 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".activity.MainActivity">
 
     <Button
         android:id="@+id/button_vk_login"
+        style="@style/ButtonLoginActivity.White"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_github"
+        android:layout_centerHorizontal="true"
+        android:text="@string/vk"
+        android:textAlignment="center"/>
+
+    <Button
+        android:id="@+id/button_github"
+        style="@style/ButtonLoginActivity.Blue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="VK LOGIN" />
+        android:text="@string/github"
+        android:textAlignment="center"/>
 
 </RelativeLayout>

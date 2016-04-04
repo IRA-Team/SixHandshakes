@@ -1,8 +1,9 @@
 package com.irateam.sixhandshakes.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.irateam.sixhandshakes.R;
@@ -11,6 +12,7 @@ import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
+import com.vk.sdk.util.VKUtil;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +23,14 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.button_vk_login).setOnClickListener((v) -> {
             VKSdk.login(MainActivity.this, VKScope.FRIENDS);
         });
+        findViewById(R.id.button_github).setOnClickListener((v) -> {
+            Uri uri = Uri.parse("https://github.com/IRA-Team/SixHandshakes");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+        });
+        String[] fingerprints = VKUtil.getCertificateFingerprint(this, this.getPackageName());
+        for (String s: fingerprints)
+            Log.e("KEKAN", s);
     }
 
     @Override
