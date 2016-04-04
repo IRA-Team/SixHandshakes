@@ -73,17 +73,23 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                     switch (size) {
                         case 3:
                             findViewById(R.id.id1).setVisibility(View.VISIBLE);
+                            findViewById(R.id.loading_stub1).setVisibility(View.VISIBLE);
                             ImageLoader.getInstance().displayImage(selfUser.photo_200, (ImageView) findViewById(R.id.image1), options);
                             break;
                         case 4:
                             findViewById(R.id.id1).setVisibility(View.VISIBLE);
                             findViewById(R.id.id2).setVisibility(View.VISIBLE);
+                            findViewById(R.id.loading_stub1).setVisibility(View.VISIBLE);
+                            findViewById(R.id.loading_stub2).setVisibility(View.VISIBLE);
                             ImageLoader.getInstance().displayImage(selfUser.photo_200, (ImageView) findViewById(R.id.image1), options);
                             break;
                         case 5:
                             findViewById(R.id.id1).setVisibility(View.VISIBLE);
                             findViewById(R.id.id2).setVisibility(View.VISIBLE);
                             findViewById(R.id.id3).setVisibility(View.VISIBLE);
+                            findViewById(R.id.loading_stub1).setVisibility(View.VISIBLE);
+                            findViewById(R.id.loading_stub2).setVisibility(View.VISIBLE);
+                            findViewById(R.id.loading_stub3).setVisibility(View.VISIBLE);
                             break;
                     }
                     System.out.println("FOUND");
@@ -138,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             public void onResult(VKAccessToken res) {
                 vk.setVisibility(View.GONE);
                 github.setVisibility(View.GONE);
+                fab.setVisibility(View.VISIBLE);
                 getSupportActionBar().setDisplayShowTitleEnabled(true);
                 getSupportActionBar().setTitle(getResources().getString(R.string.logout));
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -175,6 +182,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         if (requestCode == 228) {
             targetUser = data.getParcelableExtra("user");
             ViewGroup view = (ViewGroup) findViewById(R.id.target);
+            targetName.setText(targetUser.first_name + " " + targetUser.last_name);
             ImageLoader.getInstance().displayImage(targetUser.photo_200, (ImageView) view.findViewById(R.id.target_image), options);
         }
     }
