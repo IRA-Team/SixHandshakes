@@ -3,7 +3,9 @@ package com.irateam.sixhandshakes.service;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.util.Log;
 
 import com.irateam.sixhandshakes.model.Node;
@@ -28,6 +30,8 @@ public class RequestService extends Service {
 
     private RequestServiceBinder binder = new RequestServiceBinder();
     private Thread worker;
+    private Handler handler = new Handler(Looper.getMainLooper());
+    private ResultListener listener;
 
     private int self;
     private int target;
@@ -37,6 +41,8 @@ public class RequestService extends Service {
 
     private Set<Integer> selfIds;
     private Set<Integer> targetIds;
+
+    private int[] resultPath;
 
 
     public void start(int target) {
@@ -59,13 +65,14 @@ public class RequestService extends Service {
             add(target);
         }};
 
+        resultPath = null;
+
         worker = new Thread(() -> {
             firstStepProcessing();
             secondStepProcessing();
             thirdStepProcessing();
             fourthStepProcessing();
-            System.out.println(selfIds.size());
-            System.out.println(targetIds.size());
+            notifyNothingFound();
         });
         worker.start();
     }
@@ -81,8 +88,12 @@ public class RequestService extends Service {
                     for (int i = 0; i < idsArray.length(); i++) {
                         int id = idsArray.getInt(i);
                         if (id == target) {
-                            //TODO: notify success
-                            Log.e(TAG, "Self friends success");
+                            int[] res = {
+                                    self,
+                                    target
+                            };
+                            notifyPathFound(res);
+                            return;
                         }
                         selfIds.add(id);
                         selfTree.addChildNode(new Node() {{
@@ -109,8 +120,13 @@ public class RequestService extends Service {
                     for (int i = 0; i < idsArray.length(); i++) {
                         int id = idsArray.getInt(i);
                         if (selfIds.contains(id)) {
-                            //TODO: notify success
-                            Log.e(TAG, "Target friends success");
+                            int[] res = {
+                                    self,
+                                    id,
+                                    target
+                            };
+                            notifyPathFound(res);
+                            return;
                         }
                         targetIds.add(i);
                         targetTree.addChildNode(new Node() {{
@@ -149,9 +165,6 @@ public class RequestService extends Service {
                             int parentId = jsonResponse.getJSONObject(i).getInt("id");
                             for (int j = 0; j < a.length(); j++) {
                                 int id = a.getInt(j);
-                                if (targetIds.contains(id)) {
-                                    Log.e(TAG, "Third step processing success");
-                                }
 
                                 selfIds.add(id);
 
@@ -160,6 +173,17 @@ public class RequestService extends Service {
                                     setId(id);
                                     setParent(node);
                                 }});
+
+                                if (targetIds.contains(id)) {
+                                    int[] res = {
+                                            self,
+                                            selfTree.findById(id).getParent().getId(),
+                                            id,
+                                            target
+                                    };
+                                    notifyPathFound(res);
+                                    return;
+                                }
                             }
                         }
                     } catch (JSONException e) {
@@ -194,14 +218,6 @@ public class RequestService extends Service {
                             for (int j = 0; j < a.length(); j++) {
                                 int id = a.getInt(j);
 
-                                if (selfIds.contains(id)) {
-                                    Log.e(TAG, "Fourth step processing success");
-
-                                    System.out.println("CENTER: " + id);
-                                    System.out.println("SELF: " + selfTree.findById(id).getParent().getId());
-                                    System.out.println("TARGET: " + parentId);
-                                }
-
                                 targetIds.add(id);
 
                                 Node node = childrenMap.get(parentId);
@@ -210,6 +226,17 @@ public class RequestService extends Service {
                                     setParent(node);
                                 }});
 
+                                if (selfIds.contains(id)) {
+                                    int[] res = {
+                                            self,
+                                            selfTree.findById(id).getParent().getId(),
+                                            id,
+                                            targetTree.findById(id).getParent().getId(),
+                                            target
+                                    };
+                                    notifyPathFound(res);
+                                    return;
+                                }
                             }
                         }
                     } catch (JSONException e) {
@@ -218,6 +245,33 @@ public class RequestService extends Service {
                 }
             });
         }
+    }
+
+    public ResultListener getListener() {
+        return listener;
+    }
+
+    public void setListener(ResultListener listener) {
+        this.listener = listener;
+    }
+
+    private void notifyNothingFound() {
+        if (resultPath == null) {
+            handler.post(() -> {
+                if (listener != null) {
+                    listener.onNothingFound();
+                }
+            });
+        }
+    }
+
+    private void notifyPathFound(int[] path) {
+        resultPath = path;
+        handler.post(() -> {
+            if (listener != null) {
+                listener.onPathFound(path);
+            }
+        });
     }
 
     @Override
@@ -229,5 +283,11 @@ public class RequestService extends Service {
         public RequestService getService() {
             return RequestService.this;
         }
+    }
+
+    public interface ResultListener {
+        void onPathFound(int[] ids);
+
+        void onNothingFound();
     }
 }
