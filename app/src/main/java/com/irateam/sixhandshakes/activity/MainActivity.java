@@ -69,6 +69,23 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             requestService.setListener(new RequestService.ResultListener() {
                 @Override
                 public void onPathFound(int[] ids) {
+                    int size = ids.length;
+                    switch (size) {
+                        case 3:
+                            findViewById(R.id.id1).setVisibility(View.VISIBLE);
+                            ImageLoader.getInstance().displayImage(selfUser.photo_200, (ImageView) findViewById(R.id.image1), options);
+                            break;
+                        case 4:
+                            findViewById(R.id.id1).setVisibility(View.VISIBLE);
+                            findViewById(R.id.id2).setVisibility(View.VISIBLE);
+                            ImageLoader.getInstance().displayImage(selfUser.photo_200, (ImageView) findViewById(R.id.image1), options);
+                            break;
+                        case 5:
+                            findViewById(R.id.id1).setVisibility(View.VISIBLE);
+                            findViewById(R.id.id2).setVisibility(View.VISIBLE);
+                            findViewById(R.id.id3).setVisibility(View.VISIBLE);
+                            break;
+                    }
                     System.out.println("FOUND");
                 }
 
@@ -121,7 +138,6 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             public void onResult(VKAccessToken res) {
                 vk.setVisibility(View.GONE);
                 github.setVisibility(View.GONE);
-                fab.setVisibility(View.VISIBLE);
                 getSupportActionBar().setDisplayShowTitleEnabled(true);
                 getSupportActionBar().setTitle(getResources().getString(R.string.logout));
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -139,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                             selfUser.last_name = jsonArray.getJSONObject(0).getString("last_name");
                             selfUser.photo_200 = jsonArray.getJSONObject(0).getString("photo_200");
                             selfName.setText(selfUser.first_name + " " + selfUser.last_name);
+                            targetName.setText("Add User");
                             ViewGroup view = (ViewGroup) findViewById(R.id.self);
                             view.post(() -> {
                                 ImageLoader.getInstance().displayImage(selfUser.photo_200, (ImageView) view.findViewById(R.id.self_image), options);
