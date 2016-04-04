@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                     switch (size) {
                         case 3:
                             findViewById(R.id.id1).setVisibility(View.VISIBLE);
+                            findViewById(R.id.loading_stub1).setVisibility(View.VISIBLE);
                             VKApi.users().get(VKParameters.from(VKApiConst.FIELDS, "photo_200", VKApiConst.USER_ID, ids[1])).executeWithListener(new VKRequest.VKRequestListener() {
                                 @Override
                                 public void onComplete(VKResponse response) {
@@ -87,6 +88,8 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                         case 4:
                             findViewById(R.id.id1).setVisibility(View.VISIBLE);
                             findViewById(R.id.id2).setVisibility(View.VISIBLE);
+                            findViewById(R.id.loading_stub1).setVisibility(View.VISIBLE);
+                            findViewById(R.id.loading_stub2).setVisibility(View.VISIBLE);
                             VKApi.users().get(VKParameters.from(VKApiConst.FIELDS, "photo_200", VKApiConst.USER_ID, ids[1])).executeWithListener(new VKRequest.VKRequestListener() {
                                 @Override
                                 public void onComplete(VKResponse response) {
@@ -112,6 +115,9 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                             findViewById(R.id.id1).setVisibility(View.VISIBLE);
                             findViewById(R.id.id2).setVisibility(View.VISIBLE);
                             findViewById(R.id.id3).setVisibility(View.VISIBLE);
+                            findViewById(R.id.loading_stub1).setVisibility(View.VISIBLE);
+                            findViewById(R.id.loading_stub2).setVisibility(View.VISIBLE);
+                            findViewById(R.id.loading_stub3).setVisibility(View.VISIBLE);
                             VKApi.users().get(VKParameters.from(VKApiConst.FIELDS, "photo_200", VKApiConst.USER_ID, ids[1])).executeWithListener(new VKRequest.VKRequestListener() {
                                 @Override
                                 public void onComplete(VKResponse response) {
@@ -182,7 +188,16 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                 VKSdk.logout();
                 vk.setVisibility(View.VISIBLE);
                 github.setVisibility(View.VISIBLE);
-                fab.setVisibility(View.GONE);
+                ((ImageView) findViewById(R.id.self_image)).setImageResource(R.drawable.ic_profile_blue_30dp);
+                ((ImageView) findViewById(R.id.target_image)).setImageResource(R.drawable.ic_profile_blue_30dp);
+                findViewById(R.id.self_name).setVisibility(View.GONE);
+                findViewById(R.id.target_name).setVisibility(View.GONE);
+                findViewById(R.id.id1).setVisibility(View.GONE);
+                findViewById(R.id.id2).setVisibility(View.GONE);
+                findViewById(R.id.id3).setVisibility(View.GONE);
+                findViewById(R.id.loading_stub1).setVisibility(View.GONE);
+                findViewById(R.id.loading_stub2).setVisibility(View.GONE);
+                findViewById(R.id.loading_stub3).setVisibility(View.GONE);
                 getSupportActionBar().setDisplayShowTitleEnabled(false);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 break;
@@ -198,7 +213,6 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             public void onResult(VKAccessToken res) {
                 vk.setVisibility(View.GONE);
                 github.setVisibility(View.GONE);
-                fab.setVisibility(View.VISIBLE);
                 getSupportActionBar().setDisplayShowTitleEnabled(true);
                 getSupportActionBar().setTitle(getResources().getString(R.string.logout));
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -238,6 +252,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             ViewGroup view = (ViewGroup) findViewById(R.id.target);
             targetName.setText(targetUser.first_name + " " + targetUser.last_name);
             ImageLoader.getInstance().displayImage(targetUser.photo_200, (ImageView) view.findViewById(R.id.target_image), options);
+            fab.show();
         }
     }
 
