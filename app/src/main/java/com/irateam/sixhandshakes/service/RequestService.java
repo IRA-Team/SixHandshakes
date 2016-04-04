@@ -8,6 +8,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.util.Log;
 
+import com.irateam.sixhandshakes.utils.RequestUtils;
 import com.irateam.sixhandshakes.model.Node;
 import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
@@ -18,9 +19,7 @@ import com.vk.sdk.api.VKResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -30,7 +29,7 @@ public class RequestService extends Service {
 
     private RequestServiceBinder binder = new RequestServiceBinder();
     private Thread worker;
-    private Handler handler = new Handler(Looper.getMainLooper());
+    private Handler uiHandler = new Handler(Looper.getMainLooper());
     private ResultListener listener;
 
     private int self;
@@ -49,13 +48,10 @@ public class RequestService extends Service {
         this.self = self;
         this.target = target;
 
-        selfTree = new Node() {{
-            setId(self);
-        }};
+        resultPath = null;
 
-        targetTree = new Node() {{
-            setId(target);
-        }};
+        selfTree = new Node(self);
+        targetTree = new Node(target);
 
         selfIds = new LinkedHashSet<Integer>() {{
             add(self);
@@ -64,8 +60,6 @@ public class RequestService extends Service {
         targetIds = new LinkedHashSet<Integer>() {{
             add(target);
         }};
-
-        resultPath = null;
 
         worker = new Thread(() -> {
             firstStepProcessing();
@@ -99,10 +93,7 @@ public class RequestService extends Service {
                             return;
                         }
                         selfIds.add(id);
-                        selfTree.addChildNode(new Node() {{
-                            setId(id);
-                            setParent(selfTree);
-                        }});
+                        selfTree.addChild(new Node(id, selfTree));
                     }
                 } catch (JSONException e) {
                     Log.e(TAG, "Self friends processing error");
@@ -132,10 +123,7 @@ public class RequestService extends Service {
                             return;
                         }
                         targetIds.add(i);
-                        targetTree.addChildNode(new Node() {{
-                            setId(id);
-                            setParent(targetTree);
-                        }});
+                        targetTree.addChild(new Node(id, targetTree));
                     }
                 } catch (JSONException e) {
                     Log.e(TAG, "Self friends processing error");
@@ -145,19 +133,12 @@ public class RequestService extends Service {
         });
     }
 
+
     public void thirdStepProcessing() {
         Map<Integer, Node> childrenMap = selfTree.getChildren();
-        List<Integer> children = new ArrayList<>(childrenMap.keySet());
-        for (int multiplier = 0; multiplier < Math.ceil(children.size() / 25.0); multiplier++) {
+        for (String requestIds : RequestUtils.buildRequestStrings(childrenMap.keySet())) {
 
-            StringBuilder builder = new StringBuilder();
-            for (int i = 25 * multiplier; i < (25 * multiplier + 25) && i < children.size(); i++) {
-                builder.append(String.valueOf(children.get(i)));
-                builder.append(",");
-            }
-            builder.deleteCharAt(builder.length() - 1);
-
-            VKRequest request = new VKRequest("execute.friend_ids", VKParameters.from("users", builder.toString()));
+            VKRequest request = new VKRequest("execute.friend_ids", VKParameters.from("users", requestIds));
             request.executeSyncWithListener(new VKRequest.VKRequestListener() {
                 @Override
                 public void onComplete(VKResponse response) {
@@ -172,15 +153,12 @@ public class RequestService extends Service {
                                 selfIds.add(id);
 
                                 Node node = childrenMap.get(parentId);
-                                node.addChildNode(new Node() {{
-                                    setId(id);
-                                    setParent(node);
-                                }});
+                                node.addChild(new Node(id, node));
 
                                 if (targetIds.contains(id)) {
                                     int[] res = {
                                             self,
-                                            selfTree.findById(id).getParent().getId(),
+                                            selfTree.search(id).getParent().getId(),
                                             id,
                                             target
                                     };
@@ -199,17 +177,9 @@ public class RequestService extends Service {
 
     public void fourthStepProcessing() {
         Map<Integer, Node> childrenMap = targetTree.getChildren();
-        List<Integer> children = new ArrayList<>(childrenMap.keySet());
-        for (int multiplier = 0; multiplier < Math.ceil(children.size() / 25.0); multiplier++) {
+        for (String requestIds : RequestUtils.buildRequestStrings(childrenMap.keySet())) {
 
-            StringBuilder builder = new StringBuilder();
-            for (int i = 25 * multiplier; i < (25 * multiplier + 25) && i < children.size(); i++) {
-                builder.append(String.valueOf(children.get(i)));
-                builder.append(",");
-            }
-            builder.deleteCharAt(builder.length() - 1);
-
-            VKRequest request = new VKRequest("execute.friend_ids", VKParameters.from("users", builder.toString()));
+            VKRequest request = new VKRequest("execute.friend_ids", VKParameters.from("users", requestIds));
             request.executeSyncWithListener(new VKRequest.VKRequestListener() {
                 @Override
                 public void onComplete(VKResponse response) {
@@ -224,17 +194,14 @@ public class RequestService extends Service {
                                 targetIds.add(id);
 
                                 Node node = childrenMap.get(parentId);
-                                node.addChildNode(new Node() {{
-                                    setId(id);
-                                    setParent(node);
-                                }});
+                                node.addChild(new Node(id, node));
 
                                 if (selfIds.contains(id)) {
                                     int[] res = {
                                             self,
-                                            selfTree.findById(id).getParent().getId(),
+                                            selfTree.search(id).getParent().getId(),
                                             id,
-                                            targetTree.findById(id).getParent().getId(),
+                                            targetTree.search(id).getParent().getId(),
                                             target
                                     };
                                     notifyPathFound(res);
@@ -260,7 +227,7 @@ public class RequestService extends Service {
 
     private void notifyNothingFound() {
         if (resultPath == null) {
-            handler.post(() -> {
+            uiHandler.post(() -> {
                 if (listener != null) {
                     listener.onNothingFound();
                 }
@@ -271,7 +238,7 @@ public class RequestService extends Service {
     private void notifyPathFound(int[] path) {
         if (resultPath == null) {
             resultPath = path;
-            handler.post(() -> {
+            uiHandler.post(() -> {
                 if (listener != null) {
                     listener.onPathFound(path);
                 }

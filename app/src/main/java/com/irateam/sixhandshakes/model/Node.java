@@ -3,10 +3,36 @@ package com.irateam.sixhandshakes.model;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Represent a node of non-binary tree for storing relatives between users.
+ * Every node holds id of user. Every node (except main) stores a parent node.
+ * Main goals are ordered insertions and fast search of nodes.
+ */
 public class Node {
-    private Node parent;
-    private Map<Integer, Node> children = new LinkedHashMap<>();
+
+    /**
+     * Identifier of user
+     */
     private int id;
+
+    /**
+     * Parent node. Can be null when current node is main node of tree
+     */
+    private Node parent;
+
+    /**
+     * Map that stores pair of children nodes by their identifiers
+     */
+    private Map<Integer, Node> children = new LinkedHashMap<>();
+
+    public Node(int id) {
+        this.id = id;
+    }
+
+    public Node(int id, Node parent) {
+        this(id);
+        this.parent = parent;
+    }
 
     public Node getParent() {
         return parent;
@@ -28,19 +54,26 @@ public class Node {
         this.id = id;
     }
 
-    public void addChildNode(Node node) {
+    public void addChild(Node node) {
         children.put(node.getId(), node);
     }
 
-    public Node findById(int id) {
-        if (children.get(id) != null) {
-            return children.get(id);
+    public Node search(int id) {
+        return search(id, this);
+    }
+
+    /**
+     * @param id   - Requested identifier of node
+     * @param node - Node from which search would be began
+     * @return Node with requested id if such node would be found otherwise null
+     */
+    public static Node search(int id, Node node) {
+        if (node.children.get(id) != null) {
+            return node.children.get(id);
         }
-        for (Map.Entry<Integer, Node> entry : children.entrySet()) {
-            Node node = entry.getValue().getChildren().get(id);
-            if (node != null) {
-                return node;
-            }
+        for (Map.Entry<Integer, Node> entry : node.children.entrySet()) {
+            Node res = search(id, entry.getValue());
+            if (res != null) return res;
         }
         return null;
     }

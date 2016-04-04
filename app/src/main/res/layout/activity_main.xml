@@ -1,252 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/main_activity_background"
-    tools:context=".activity.MainActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ScrollView
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.irateam.sixhandshakes.viewmodel.MainActivityVM" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-        <FrameLayout
-            android:id="@+id/self"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="8dp">
-
-            <View
-                android:layout_width="140dp"
-                android:layout_height="140dp"
-                android:background="@drawable/stroke" />
-
-            <ImageView
-                android:id="@+id/self_image"
-                android:layout_width="125dp"
-                android:layout_height="125dp"
-                android:layout_gravity="center"
-                android:background="@drawable/circle_white"
-                android:scaleType="center"
-                android:src="@drawable/ic_profile_blue_30dp" />
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/self_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/vk_white"
-            android:layout_marginBottom="8dp"/>
-
-        <com.irateam.sixhandshakes.ui.LoadingStub
-            android:id="@+id/loading_stub"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="4dp" />
-
-            <!--&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
-
-            <FrameLayout
-                android:id="@+id/id1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="8dp"
-                android:visibility="gone">
-
-                <View
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:background="@drawable/stroke" />
-
-                <ImageView
-                    android:id="@+id/image1"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/circle_white"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_profile_blue_30dp" />
-            </FrameLayout>
-
-            <com.irateam.sixhandshakes.ui.LoadingStub
-                android:id="@+id/loading_stub1"
-                android:visibility="gone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="4dp" />
-
-            <FrameLayout
-                android:id="@+id/id2"
-                android:visibility="gone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="8dp">
-
-                <View
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:background="@drawable/stroke" />
-
-                <ImageView
-                    android:id="@+id/image2"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/circle_white"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_profile_blue_30dp" />
-            </FrameLayout>
-
-            <com.irateam.sixhandshakes.ui.LoadingStub
-                android:id="@+id/loading_stub2"
-                android:visibility="gone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="4dp" />
-
-            <FrameLayout
-                android:id="@+id/id3"
-                android:visibility="gone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="8dp">
-
-                <View
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:background="@drawable/stroke" />
-
-                <ImageView
-                    android:id="@+id/image3"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/circle_white"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_profile_blue_30dp" />
-            </FrameLayout>
-
-            <com.irateam.sixhandshakes.ui.LoadingStub
-                android:id="@+id/loading_stub3"
-                android:visibility="gone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="4dp" />
-
-            <FrameLayout
-                android:id="@+id/id4"
-                android:visibility="gone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="8dp">
-
-                <View
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:background="@drawable/stroke" />
-
-                <ImageView
-                    android:id="@+id/image4"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/circle_white"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_profile_blue_30dp" />
-            </FrameLayout>
-
-            <com.irateam.sixhandshakes.ui.LoadingStub
-                android:id="@+id/loading_stub4"
-                android:visibility="gone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="4dp" />
-
-            <!-- -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
-
-        <FrameLayout
-            android:id="@+id/target"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="8dp">
-
-            <View
-                android:layout_width="140dp"
-                android:layout_height="140dp"
-                android:background="@drawable/stroke" />
-
-            <ImageView
-                android:id="@+id/target_image"
-                android:layout_width="125dp"
-                android:layout_height="125dp"
-                android:layout_gravity="center"
-                android:background="@drawable/circle_white"
-                android:scaleType="center"
-                android:src="@drawable/ic_profile_blue_30dp" />
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/target_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/vk_white"/>
-
-        <Button
-            android:id="@+id/button_vk_login"
-            style="@style/ButtonMainActivity.White"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/button_github"
-            android:layout_centerHorizontal="true"
-            android:text="@string/vk"
-            android:textAlignment="center" />
-
-        <Button
-            android:id="@+id/button_github"
-            style="@style/ButtonMainActivity.Blue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:text="@string/github"
-            android:textAlignment="center" />
+        android:background="@color/main_activity_background">
 
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <ImageView
+                        android:layout_width="125dp"
+                        android:layout_height="125dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circle_white"
+                        android:padding="8dp"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_profile_blue_30dp"
+                        app:user="@{viewModel.self}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/vk_white"
+                        app:user="@{viewModel.self}" />
+
+                    <com.irateam.sixhandshakes.ui.LoadingStub
+                        android:id="@+id/loading_stub"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="4dp" />
+
+                    <ImageView
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circle_white"
+                        android:padding="8dp"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_profile_blue_30dp"
+                        android:visibility="@{viewModel.first != null}"
+                        app:user="@{viewModel.first}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/vk_white"
+                        android:visibility="@{viewModel.first != null}"
+                        app:user="@{viewModel.first}" />
+
+                    <com.irateam.sixhandshakes.ui.LoadingStub
+                        android:id="@+id/loading_stub1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="4dp"
+                        android:visibility="@{viewModel.first != null}" />
+
+                    <ImageView
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circle_white"
+                        android:padding="8dp"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_profile_blue_30dp"
+                        android:visibility="@{viewModel.second!= null}"
+                        app:user="@{viewModel.second}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/vk_white"
+                        android:visibility="@{viewModel.second != null}"
+                        app:user="@{viewModel.second}" />
+
+                    <com.irateam.sixhandshakes.ui.LoadingStub
+                        android:id="@+id/loading_stub2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="4dp"
+                        android:visibility="@{viewModel.second!= null}" />
+
+                    <ImageView
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circle_white"
+                        android:padding="8dp"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_profile_blue_30dp"
+                        android:visibility="@{viewModel.third != null}"
+                        app:user="@{viewModel.third}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/vk_white"
+                        android:visibility="@{viewModel.third != null}"
+                        app:user="@{viewModel.third}" />
+
+                    <com.irateam.sixhandshakes.ui.LoadingStub
+                        android:id="@+id/loading_stub3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="4dp"
+                        android:visibility="@{viewModel.third != null}" />
+
+
+                    <ImageView
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circle_white"
+                        android:padding="8dp"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_profile_blue_30dp"
+                        android:visibility="@{viewModel.fourth != null}"
+                        app:user="@{viewModel.fourth}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/vk_white"
+                        android:visibility="@{viewModel.fourth != null}"
+                        app:user="@{viewModel.fourth}" />
+
+                    <com.irateam.sixhandshakes.ui.LoadingStub
+                        android:id="@+id/loading_stub4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="4dp"
+                        android:visibility="@{viewModel.fourth != null}" />
+
+                    <ImageView
+                        android:layout_width="125dp"
+                        android:layout_height="125dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circle_white"
+                        android:padding="8dp"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_profile_blue_30dp"
+                        app:onClick="@{viewModel.openSearch}"
+                        app:user="@{viewModel.target}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/vk_white"
+                        app:user="@{viewModel.target}" />
+
+                    <Button
+                        style="@style/ButtonMainActivity.White"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/vk"
+                        android:visibility="@{!viewModel.isLoggedIn}"
+                        app:onClick="@{viewModel.openLoginActivity}" />
+
+                    <Button
+                        style="@style/ButtonMainActivity.Blue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/github"
+                        android:visibility="@{!viewModel.isLoggedIn}"
+                        app:onClick="@{viewModel.openGitHubPage}" />
+
+
+                </LinearLayout>
+            </ScrollView>
+
             <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab"
                 style="@style/AppTheme.FloatingActionButtonWhite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_margin="@dimen/fab_margin"
-                android:src="@drawable/ic_fab_play_blue_24dp"
-                android:visibility="gone" />
+                android:src="@{viewModel.isProcessing ? @drawable/ic_fab_stop_blue_24dp : @drawable/ic_fab_play_blue_24dp}"
+                android:visibility="@{viewModel.self != null &amp;&amp; viewModel.target != null}"
+                app:onClick="@{viewModel.isProcessing ? viewModel.stopProcessing : viewModel.startProcessing}" />
 
         </android.support.design.widget.CoordinatorLayout>
+    </RelativeLayout>
 
-        </LinearLayout>
-    </ScrollView>
-
-</RelativeLayout>
+</layout>
