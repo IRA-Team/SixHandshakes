@@ -269,12 +269,14 @@ public class RequestService extends Service {
     }
 
     private void notifyPathFound(int[] path) {
-        resultPath = path;
-        handler.post(() -> {
-            if (listener != null) {
-                listener.onPathFound(path);
-            }
-        });
+        if (resultPath == null) {
+            resultPath = path;
+            handler.post(() -> {
+                if (listener != null) {
+                    listener.onPathFound(path);
+                }
+            });
+        }
     }
 
     @Override
