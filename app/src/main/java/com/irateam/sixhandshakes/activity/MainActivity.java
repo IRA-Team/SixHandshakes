@@ -42,9 +42,9 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
     FloatingActionButton fab;
     TextView selfName, targetName;
 
-    VKApiUser selfUser, targetUser;
-
     DisplayImageOptions options;
+    VKApiUserFull targetUser;
+    VKApiUser selfUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +65,14 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         selfName = (TextView) findViewById(R.id.self_name);
         targetName = (TextView) findViewById(R.id.target_name);
 
+        fab.setOnClickListener(v -> {
+            requestService.start(selfUser.id, targetUser.id);
+        });
+
         vk.setOnClickListener((v) -> {
             VKSdk.login(MainActivity.this, VKScope.FRIENDS);
         });
+
         github.setOnClickListener((v) -> {
             Uri uri = Uri.parse("https://github.com/IRA-Team/SixHandshakes");
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
@@ -117,12 +122,15 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                     public void onComplete(VKResponse response) {
                         try {
                             JSONArray jsonArray = response.json.getJSONArray("response");
-                            user.id = jsonArray.getJSONObject(0).getInt("id");
-                            user.first_name = jsonArray.getJSONObject(0).getString("first_name");
-                            user.photo_400_orig = jsonArray.getJSONObject(0).getString("photo_400_orig");
-                            selfName.setText(user.first_name);
+                            selfUser.id = jsonArray.getJSONObject(0).getInt("id");
+                            selfUser.first_name = jsonArray.getJSONObject(0).getString("first_name");
+                            selfUser.photo_400_orig = jsonArray.getJSONObject(0).getString("photo_400_orig");
+                            selfName.setText(selfUser.first_name);
                             ViewGroup view = (ViewGroup) findViewById(R.id.target);
-                            ImageLoader.getInstance().displayImage(user.photo_400_orig, (ImageView) view.findViewById(R.id.image), options);
+                            ImageLoader.getInstance()
+                                    .displayImage(selfUser.photo_400_orig,
+                                            (ImageView) findViewById(R.id.self_image),
+                                            options);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -136,15 +144,17 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         })) ;
 
         if (requestCode == 228) {
-            VKApiUserFull user = data.getParcelableExtra("user");
+            targetUser = data.getParcelableExtra("user");
             ViewGroup view = (ViewGroup) findViewById(R.id.target);
-            ImageLoader.getInstance().displayImage(user.photo_100, (ImageView) view.findViewById(R.id.image), options);
+            ImageLoader.getInstance().displayImage(targetUser.photo_200, (ImageView) view.findViewById(R.id.target_image), options);
         }
     }
 
+    private RequestService requestService;
+
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
-        ((RequestService.RequestServiceBinder) service).getService().start(3664185);
+        requestService = ((RequestService.RequestServiceBinder) service).getService();
     }
 
     @Override

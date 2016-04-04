@@ -18,19 +18,21 @@
             android:layout_height="140dp"
             android:background="@drawable/stroke" />
 
-        <include
-            layout="@layout/profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="7dp"
-            android:layout_marginTop="7dp" />
+        <ImageView
+            android:id="@+id/self_image"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_gravity="center"
+            android:background="@drawable/circle_white"
+            android:scaleType="center"
+            android:src="@drawable/ic_profile_blue_30dp" />
     </FrameLayout>
 
     <TextView
         android:id="@+id/self_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/self"/>
+        android:layout_below="@+id/self" />
 
     <com.irateam.sixhandshakes.ui.LoadingStub
         android:id="@+id/loading_stub"
@@ -41,7 +43,7 @@
         android:layout_marginBottom="4dp" />
 
     <FrameLayout
-        android:id=""
+        android:id="@+id/target"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/loading_stub"
@@ -52,21 +54,21 @@
             android:layout_height="140dp"
             android:background="@drawable/stroke" />
 
-        <include
-            android:id="@+id/target"
-            layout="@layout/profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="7dp"
-            android:layout_marginTop="7dp" />
+        <ImageView
+            android:id="@+id/target_image"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_gravity="center"
+            android:background="@drawable/circle_white"
+            android:scaleType="center"
+            android:src="@drawable/ic_profile_blue_30dp" />
     </FrameLayout>
 
     <TextView
         android:id="@+id/target_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_below=""/>
+        android:gravity="center_horizontal" />
 
     <Button
         android:id="@+id/button_vk_login"
@@ -99,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
-            android:src="@android:drawable/ic_delete"
+            android:src="@drawable/ic_fab_play_blue_24dp"
             android:visibility="gone" />
 
     </android.support.design.widget.CoordinatorLayout>

@@ -64,7 +64,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void search(String q) {
-        new VKApiUsers().search(VKParameters.from(VKApiConst.FIELDS, "photo_100, photo_400_orig", VKApiConst.Q, q))
+        new VKApiUsers().search(VKParameters.from(VKApiConst.FIELDS, "photo_100, photo_200", VKApiConst.Q, q))
                 .executeWithListener(new VKRequest.VKRequestListener() {
 
                     @Override

@@ -45,8 +45,8 @@ public class RequestService extends Service {
     private int[] resultPath;
 
 
-    public void start(int target) {
-        this.self = 51843688;
+    public void start(int self, int target) {
+        this.self = self;
         this.target = target;
 
         selfTree = new Node() {{
