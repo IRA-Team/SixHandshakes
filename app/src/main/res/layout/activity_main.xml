@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="8dp">
 
         <View
             android:layout_width="140dp"
@@ -30,7 +30,10 @@
         android:id="@+id/self_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/self"/>
+        android:layout_below="@+id/self"
+        android:textColor="@color/vk_white"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"/>
 
     <com.irateam.sixhandshakes.ui.LoadingStub
         android:id="@+id/loading_stub"
@@ -41,11 +44,12 @@
         android:layout_marginBottom="4dp" />
 
     <FrameLayout
-        android:id=""
+        android:id="@+id/target_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/loading_stub"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp">
 
         <View
             android:layout_width="140dp"
@@ -63,10 +67,12 @@
 
     <TextView
         android:id="@+id/target_name"
+        android:textColor="@color/vk_white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:layout_below=""/>
+        android:layout_below="@id/target_layout"
+        android:layout_centerHorizontal="true"/>
 
     <Button
         android:id="@+id/button_vk_login"

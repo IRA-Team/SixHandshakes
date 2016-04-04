@@ -117,12 +117,13 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                     public void onComplete(VKResponse response) {
                         try {
                             JSONArray jsonArray = response.json.getJSONArray("response");
-                            user.id = jsonArray.getJSONObject(0).getInt("id");
-                            user.first_name = jsonArray.getJSONObject(0).getString("first_name");
-                            user.photo_400_orig = jsonArray.getJSONObject(0).getString("photo_400_orig");
-                            selfName.setText(user.first_name);
+                            selfUser.id = jsonArray.getJSONObject(0).getInt("id");
+                            selfUser.first_name = jsonArray.getJSONObject(0).getString("first_name");
+                            selfUser.last_name = jsonArray.getJSONObject(0).getString("last_name");
+                            selfUser.photo_400_orig = jsonArray.getJSONObject(0).getString("photo_400_orig");
+                            selfName.setText(selfUser.first_name + " " + selfUser.last_name);
                             ViewGroup view = (ViewGroup) findViewById(R.id.target);
-                            ImageLoader.getInstance().displayImage(user.photo_400_orig, (ImageView) view.findViewById(R.id.image), options);
+                            ImageLoader.getInstance().displayImage(selfUser.photo_400_orig, (ImageView) view.findViewById(R.id.image), options);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
