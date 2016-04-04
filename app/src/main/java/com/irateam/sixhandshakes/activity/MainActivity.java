@@ -44,7 +44,13 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
         });
+
+        findViewById(R.id.target).setOnClickListener(v -> {
+            startActivityForResult(new Intent(MainActivity.this, SearchActivity.class), 228);
+        });
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -82,6 +88,10 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             public void onError(VKError error) {
             }
         })) ;
+
+        if (requestCode == 228) {
+            System.out.println(data.getParcelableArrayExtra("user"));
+        }
     }
 
     @Override
