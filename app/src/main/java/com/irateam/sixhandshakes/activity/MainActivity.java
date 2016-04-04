@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
 
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
-        ((RequestService.RequestServiceBinder) service).getService().start(1);
+        ((RequestService.RequestServiceBinder) service).getService().start(3664185);
     }
 
     @Override

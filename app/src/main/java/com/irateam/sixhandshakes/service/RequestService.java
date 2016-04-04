@@ -16,8 +16,10 @@ import com.vk.sdk.api.VKResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class RequestService extends Service {
@@ -61,6 +63,9 @@ public class RequestService extends Service {
             firstStepProcessing();
             secondStepProcessing();
             thirdStepProcessing();
+            fourthStepProcessing();
+            System.out.println(selfIds.size());
+            System.out.println(targetIds.size());
         });
         worker.start();
     }
@@ -82,6 +87,7 @@ public class RequestService extends Service {
                         selfIds.add(id);
                         selfTree.addChildNode(new Node() {{
                             setId(id);
+                            setParent(selfTree);
                         }});
                     }
                 } catch (JSONException e) {
@@ -109,6 +115,7 @@ public class RequestService extends Service {
                         targetIds.add(i);
                         targetTree.addChildNode(new Node() {{
                             setId(id);
+                            setParent(targetTree);
                         }});
                     }
                 } catch (JSONException e) {
@@ -120,12 +127,13 @@ public class RequestService extends Service {
     }
 
     public void thirdStepProcessing() {
-        List<Node> children = selfTree.getChildren();
+        Map<Integer, Node> childrenMap = selfTree.getChildren();
+        List<Integer> children = new ArrayList<>(childrenMap.keySet());
         for (int multiplier = 0; multiplier < Math.ceil(children.size() / 25.0); multiplier++) {
 
             StringBuilder builder = new StringBuilder();
             for (int i = 25 * multiplier; i < (25 * multiplier + 25) && i < children.size(); i++) {
-                builder.append(String.valueOf(children.get(i).getId()));
+                builder.append(String.valueOf(children.get(i)));
                 builder.append(",");
             }
             builder.deleteCharAt(builder.length() - 1);
@@ -138,13 +146,70 @@ public class RequestService extends Service {
                         JSONArray jsonResponse = response.json.getJSONArray("response");
                         for (int i = 0; i < jsonResponse.length(); i++) {
                             JSONArray a = jsonResponse.getJSONObject(i).getJSONArray("items");
+                            int parentId = jsonResponse.getJSONObject(i).getInt("id");
                             for (int j = 0; j < a.length(); j++) {
                                 int id = a.getInt(j);
                                 if (targetIds.contains(id)) {
                                     Log.e(TAG, "Third step processing success");
                                 }
+
                                 selfIds.add(id);
-                                // TODO: add nodes
+
+                                Node node = childrenMap.get(parentId);
+                                node.addChildNode(new Node() {{
+                                    setId(id);
+                                    setParent(node);
+                                }});
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+    }
+
+    public void fourthStepProcessing() {
+        Map<Integer, Node> childrenMap = targetTree.getChildren();
+        List<Integer> children = new ArrayList<>(childrenMap.keySet());
+        for (int multiplier = 0; multiplier < Math.ceil(children.size() / 25.0); multiplier++) {
+
+            StringBuilder builder = new StringBuilder();
+            for (int i = 25 * multiplier; i < (25 * multiplier + 25) && i < children.size(); i++) {
+                builder.append(String.valueOf(children.get(i)));
+                builder.append(",");
+            }
+            builder.deleteCharAt(builder.length() - 1);
+
+            VKRequest request = new VKRequest("execute.friend_ids", VKParameters.from("users", builder.toString()));
+            request.executeSyncWithListener(new VKRequest.VKRequestListener() {
+                @Override
+                public void onComplete(VKResponse response) {
+                    try {
+                        JSONArray jsonResponse = response.json.getJSONArray("response");
+                        for (int i = 0; i < jsonResponse.length(); i++) {
+                            JSONArray a = jsonResponse.getJSONObject(i).getJSONArray("items");
+                            int parentId = jsonResponse.getJSONObject(i).getInt("id");
+                            for (int j = 0; j < a.length(); j++) {
+                                int id = a.getInt(j);
+
+                                if (selfIds.contains(id)) {
+                                    Log.e(TAG, "Fourth step processing success");
+
+                                    System.out.println("CENTER: " + id);
+                                    System.out.println("SELF: " + selfTree.findById(id).getParent().getId());
+                                    System.out.println("TARGET: " + parentId);
+                                }
+
+                                targetIds.add(id);
+
+                                Node node = childrenMap.get(parentId);
+                                node.addChildNode(new Node() {{
+                                    setId(id);
+                                    setParent(node);
+                                }});
+
                             }
                         }
                     } catch (JSONException e) {

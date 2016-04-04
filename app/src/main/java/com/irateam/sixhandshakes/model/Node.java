@@ -1,27 +1,23 @@
 package com.irateam.sixhandshakes.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Node {
-    private Node node;
-    private List<Node> children = new ArrayList<>();
+    private Node parent;
+    private Map<Integer, Node> children = new LinkedHashMap<>();
     private int id;
 
-    public Node getNode() {
-        return node;
+    public Node getParent() {
+        return parent;
     }
 
-    public void setNode(Node node) {
-        this.node = node;
+    public void setParent(Node parent) {
+        this.parent = parent;
     }
 
-    public List<Node> getChildren() {
+    public Map<Integer, Node> getChildren() {
         return children;
-    }
-
-    public void setChildren(List<Node> children) {
-        this.children = children;
     }
 
     public int getId() {
@@ -33,6 +29,19 @@ public class Node {
     }
 
     public void addChildNode(Node node) {
-        children.add(node);
+        children.put(node.getId(), node);
+    }
+
+    public Node findById(int id) {
+        if (children.get(id) != null) {
+            return children.get(id);
+        }
+        for (Map.Entry<Integer, Node> entry : children.entrySet()) {
+            Node node = entry.getValue().getChildren().get(id);
+            if (node != null) {
+                return node;
+            }
+        }
+        return null;
     }
 }
