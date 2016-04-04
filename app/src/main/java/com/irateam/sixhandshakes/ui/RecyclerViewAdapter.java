@@ -44,7 +44,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<FriendViewHolder> 
             searchActivity.setResult(Activity.RESULT_OK, new Intent().putExtra("user", user));
             searchActivity.finish();
         });
-        ImageLoader.getInstance().displayImage(user.photo_50, holder.photo, options);
+        holder.id.setText("ID: " + user.id);
+        ImageLoader.getInstance().displayImage(user.photo_100, holder.photo, options);
     }
 
     @Override

@@ -11,10 +11,12 @@ public class FriendViewHolder extends RecyclerView.ViewHolder {
 
     ImageView photo;
     TextView name;
+    TextView id;
 
     public FriendViewHolder(View view) {
         super(view);
         photo = (ImageView) view.findViewById(R.id.photo);
         name = (TextView) view.findViewById(R.id.name);
+        id = (TextView) view.findViewById(R.id.id);
     }
 }

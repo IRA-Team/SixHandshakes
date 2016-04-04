@@ -10,10 +10,15 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.irateam.sixhandshakes.R;
 import com.irateam.sixhandshakes.service.RequestService;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
@@ -24,11 +29,14 @@ import com.vk.sdk.api.VKError;
 import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
+import com.vk.sdk.api.model.VKApiUserFull;
 
 public class MainActivity extends AppCompatActivity implements ServiceConnection {
 
     Button vk, github;
     FloatingActionButton fab;
+
+    DisplayImageOptions options;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +44,10 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         setContentView(R.layout.activity_main);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setElevation(0);
+
+        options = new DisplayImageOptions.Builder()
+                .displayer(new RoundedBitmapDisplayer(10000))
+                .build();
 
         vk = (Button) findViewById(R.id.button_vk_login);
         github = (Button) findViewById(R.id.button_github);
@@ -54,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             startActivityForResult(new Intent(MainActivity.this, SearchActivity.class), 228);
         });
     }
-
 
 
     @Override
@@ -102,7 +113,9 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         })) ;
 
         if (requestCode == 228) {
-            System.out.println(data.getParcelableArrayExtra("user"));
+            VKApiUserFull user = data.getParcelableExtra("user");
+            ViewGroup view = (ViewGroup) findViewById(R.id.target);
+            ImageLoader.getInstance().displayImage(user.photo_100, (ImageView) view.findViewById(R.id.image), options);
         }
     }
 
