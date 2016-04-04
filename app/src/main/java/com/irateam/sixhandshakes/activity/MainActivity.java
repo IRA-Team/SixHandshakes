@@ -73,23 +73,77 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                     switch (size) {
                         case 3:
                             findViewById(R.id.id1).setVisibility(View.VISIBLE);
-                            findViewById(R.id.loading_stub1).setVisibility(View.VISIBLE);
-                            ImageLoader.getInstance().displayImage(selfUser.photo_200, (ImageView) findViewById(R.id.image1), options);
+                            VKApi.users().get(VKParameters.from(VKApiConst.FIELDS, "photo_200", VKApiConst.USER_ID, ids[1])).executeWithListener(new VKRequest.VKRequestListener() {
+                                @Override
+                                public void onComplete(VKResponse response) {
+                                    try {
+                                        ImageLoader.getInstance().displayImage(response.json.getJSONArray("response").getJSONObject(0).getString("photo_200"), (ImageView) findViewById(R.id.image1), options);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
                             break;
                         case 4:
                             findViewById(R.id.id1).setVisibility(View.VISIBLE);
                             findViewById(R.id.id2).setVisibility(View.VISIBLE);
-                            findViewById(R.id.loading_stub1).setVisibility(View.VISIBLE);
-                            findViewById(R.id.loading_stub2).setVisibility(View.VISIBLE);
-                            ImageLoader.getInstance().displayImage(selfUser.photo_200, (ImageView) findViewById(R.id.image1), options);
+                            VKApi.users().get(VKParameters.from(VKApiConst.FIELDS, "photo_200", VKApiConst.USER_ID, ids[1])).executeWithListener(new VKRequest.VKRequestListener() {
+                                @Override
+                                public void onComplete(VKResponse response) {
+                                    try {
+                                        ImageLoader.getInstance().displayImage(response.json.getJSONArray("response").getJSONObject(0).getString("photo_200"), (ImageView) findViewById(R.id.image1), options);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
+                            VKApi.users().get(VKParameters.from(VKApiConst.FIELDS, "photo_200", VKApiConst.USER_ID, ids[2])).executeWithListener(new VKRequest.VKRequestListener() {
+                                @Override
+                                public void onComplete(VKResponse response) {
+                                    try {
+                                        ImageLoader.getInstance().displayImage(response.json.getJSONArray("response").getJSONObject(0).getString("photo_200"), (ImageView) findViewById(R.id.image2), options);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
                             break;
                         case 5:
                             findViewById(R.id.id1).setVisibility(View.VISIBLE);
                             findViewById(R.id.id2).setVisibility(View.VISIBLE);
                             findViewById(R.id.id3).setVisibility(View.VISIBLE);
-                            findViewById(R.id.loading_stub1).setVisibility(View.VISIBLE);
-                            findViewById(R.id.loading_stub2).setVisibility(View.VISIBLE);
-                            findViewById(R.id.loading_stub3).setVisibility(View.VISIBLE);
+                            VKApi.users().get(VKParameters.from(VKApiConst.FIELDS, "photo_200", VKApiConst.USER_ID, ids[1])).executeWithListener(new VKRequest.VKRequestListener() {
+                                @Override
+                                public void onComplete(VKResponse response) {
+                                    try {
+                                        ImageLoader.getInstance().displayImage(response.json.getJSONArray("response").getJSONObject(0).getString("photo_200"), (ImageView) findViewById(R.id.image1), options);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
+                            findViewById(R.id.id1).setVisibility(View.VISIBLE);
+                            VKApi.users().get(VKParameters.from(VKApiConst.FIELDS, "photo_200", VKApiConst.USER_ID, ids[2])).executeWithListener(new VKRequest.VKRequestListener() {
+                                @Override
+                                public void onComplete(VKResponse response) {
+                                    try {
+                                        ImageLoader.getInstance().displayImage(response.json.getJSONArray("response").getJSONObject(0).getString("photo_200"), (ImageView) findViewById(R.id.image2), options);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
+                            findViewById(R.id.id1).setVisibility(View.VISIBLE);
+                            VKApi.users().get(VKParameters.from(VKApiConst.FIELDS, "photo_200", VKApiConst.USER_ID, ids[3])).executeWithListener(new VKRequest.VKRequestListener() {
+                                @Override
+                                public void onComplete(VKResponse response) {
+                                    try {
+                                        ImageLoader.getInstance().displayImage(response.json.getJSONArray("response").getJSONObject(0).getString("photo_200"), (ImageView) findViewById(R.id.image3), options);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
                             break;
                     }
                     System.out.println("FOUND");
