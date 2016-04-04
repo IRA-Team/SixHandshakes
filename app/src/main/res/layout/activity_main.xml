@@ -3,22 +3,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_activity_background"
     tools:context=".activity.MainActivity">
 
     <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/self">
 
-        <ImageView
+        <include
+            layout="@layout/profile"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_profile_blue_30dp"/>
-
+            android:layout_height="wrap_content" />
     </FrameLayout>
 
     <com.irateam.sixhandshakes.ui.LoadingStub
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:id="@+id/loading_stub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/self" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/target"
+            layout="@layout/profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/loading_stub" />
+    </FrameLayout>
 
     <Button
         android:id="@+id/button_vk_login"
