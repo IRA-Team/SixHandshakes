@@ -1,29 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_profile_blue_30dp"/>
+
+    </FrameLayout>
+
+    <com.irateam.sixhandshakes.ui.LoadingStub
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <Button
         android:id="@+id/button_vk_login"
-        style="@style/ButtonLoginActivity.White"
+        style="@style/ButtonMainActivity.White"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button_github"
         android:layout_centerHorizontal="true"
         android:text="@string/vk"
-        android:textAlignment="center"/>
+        android:textAlignment="center" />
 
     <Button
         android:id="@+id/button_github"
-        style="@style/ButtonLoginActivity.Blue"
+        style="@style/ButtonMainActivity.Blue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:text="@string/github"
-        android:textAlignment="center"/>
+        android:textAlignment="center" />
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            style="@style/AppTheme.FloatingActionButtonWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_delete"
+            android:visibility="gone" />
+
+    </android.support.design.widget.CoordinatorLayout>
 
 </RelativeLayout>

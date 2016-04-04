@@ -8,4 +8,8 @@
     <color name="vk_button_text_color">#1e88e5</color>
     <color name="github_button_background">#255b8a</color>
     <color name="github_button_text_color">#ffffff</color>
+
+    <color name="main_activity_background">#1e88e5</color>
+
+    <color name="round_image_background">#4eabfc</color>
 </resources>

@@ -1,14 +1,11 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/main_activity_background</item>
+        <item name="colorPrimaryDark">@color/main_activity_background</item>
     </style>
 
-    <style name="ButtonLoginActivity">
+    <style name="ButtonMainActivity">
         <item name="android:layout_marginBottom">16dp</item>
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:layout_marginRight">16dp</item>
@@ -18,14 +15,18 @@
         <item name="android:gravity">left|center_vertical</item>
     </style>
 
-    <style name="ButtonLoginActivity.White">
+    <style name="ButtonMainActivity.White">
         <item name="android:background">@color/vk_button_background</item>
         <item name="android:textColor">@color/vk_button_text_color</item>
     </style>
 
-    <style name="ButtonLoginActivity.Blue">
+    <style name="ButtonMainActivity.Blue">
         <item name="android:background">@color/github_button_background</item>
         <item name="android:textColor">@color/github_button_text_color</item>
+    </style>
+
+    <style name="AppTheme.FloatingActionButtonWhite" parent="Widget.Design.FloatingActionButton">
+        <item name="backgroundTint">@android:color/white</item>
     </style>
 
 </resources>
