@@ -18,7 +18,12 @@ import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
 import com.vk.sdk.VKSdk;
+import com.vk.sdk.api.VKApi;
+import com.vk.sdk.api.VKApiConst;
 import com.vk.sdk.api.VKError;
+import com.vk.sdk.api.VKParameters;
+import com.vk.sdk.api.VKRequest;
+import com.vk.sdk.api.VKResponse;
 
 public class MainActivity extends AppCompatActivity implements ServiceConnection {
 
@@ -82,6 +87,13 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
 
                 startService(new Intent(MainActivity.this, RequestService.class));
                 bindService(new Intent(MainActivity.this, RequestService.class), MainActivity.this, 0);
+
+                VKApi.users().get(VKParameters.from(VKApiConst.FIELDS, "photo_400")).executeSyncWithListener(new VKRequest.VKRequestListener() {
+                    @Override
+                    public void onComplete(VKResponse response) {
+
+                    }
+                });
             }
 
             @Override

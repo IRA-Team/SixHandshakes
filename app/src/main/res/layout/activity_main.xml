@@ -7,32 +7,51 @@
     tools:context=".activity.MainActivity">
 
     <FrameLayout
+        android:id="@+id/self"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/self">
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp">
+
+        <View
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:background="@drawable/stroke" />
 
         <include
             layout="@layout/profile"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="7dp" />
     </FrameLayout>
 
     <com.irateam.sixhandshakes.ui.LoadingStub
         android:id="@+id/loading_stub"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/self" />
+        android:layout_below="@id/self"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="4dp" />
 
     <FrameLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loading_stub"
+        android:layout_centerHorizontal="true">
+
+        <View
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:background="@drawable/stroke" />
 
         <include
             android:id="@+id/target"
             layout="@layout/profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/loading_stub" />
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="7dp" />
     </FrameLayout>
 
     <Button
