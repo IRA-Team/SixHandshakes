@@ -1,4 +1,4 @@
-package com.irateam.sixhandshakes;
+package com.irateam.sixhandshakes.model;
 
 import java.util.List;
 

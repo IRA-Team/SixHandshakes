@@ -1,4 +1,4 @@
-package com.irateam.sixhandshakes;
+package com.irateam.sixhandshakes.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,5 +30,9 @@ public class Node {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void addChildNode(Node node) {
+        children.add(node);
     }
 }
