@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
 
-    <stroke
-        android:width="8dp"
-        android:color="#78d9ff"/>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android"
+            android:shape="oval">
 
-    <solid
-        android:color="#ffffff"/>
-</shape>
+            <stroke
+                android:width="8dp"
+                android:color="#78d9ff" />
+
+            <solid android:color="#ffffff" />
+
+        </shape>
+    </item>
+    <item
+        android:width="30dp"
+        android:height="30dp"
+        android:drawable="@drawable/ic_profile_blue_30dp"
+        android:gravity="center" />
+</layer-list>

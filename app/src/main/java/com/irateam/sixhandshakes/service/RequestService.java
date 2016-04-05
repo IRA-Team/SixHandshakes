@@ -6,18 +6,16 @@ import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
-import android.util.Log;
 
-import com.irateam.sixhandshakes.utils.RequestUtils;
 import com.irateam.sixhandshakes.model.Node;
+import com.irateam.sixhandshakes.utils.RequestUtils;
+import com.irateam.sixhandshakes.utils.SimpleCallback;
 import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
 import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
-import com.vk.sdk.api.VKResponse;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -32,32 +30,31 @@ public class RequestService extends Service {
     private Handler uiHandler = new Handler(Looper.getMainLooper());
     private ResultListener listener;
 
-    private int self;
-    private int target;
+    private int selfId;
+    private int targetId;
 
-    private Node selfTree;
-    private Node targetTree;
+    private Node selfFriendsTree;
+    private Node targetFriendsTree;
 
-    private Set<Integer> selfIds;
-    private Set<Integer> targetIds;
+    private Set<Integer> selfFriendsIds;
+    private Set<Integer> targetFriendsIds;
 
     private int[] resultPath;
-
-
+    
     public void start(int self, int target) {
-        this.self = self;
-        this.target = target;
+        this.selfId = self;
+        this.targetId = target;
 
         resultPath = null;
 
-        selfTree = new Node(self);
-        targetTree = new Node(target);
+        selfFriendsTree = new Node(self);
+        targetFriendsTree = new Node(target);
 
-        selfIds = new LinkedHashSet<Integer>() {{
+        selfFriendsIds = new LinkedHashSet<Integer>() {{
             add(self);
         }};
 
-        targetIds = new LinkedHashSet<Integer>() {{
+        targetFriendsIds = new LinkedHashSet<Integer>() {{
             add(target);
         }};
 
@@ -76,144 +73,130 @@ public class RequestService extends Service {
 
     // First step processing
     public void firstStepProcessing() {
-        VKRequest request = VKApi.friends().get(VKParameters.from(VKApiConst.USER_ID, self));
-        request.executeSyncWithListener(new VKRequest.VKRequestListener() {
-            @Override
-            public void onComplete(VKResponse response) {
-                try {
-                    JSONArray idsArray = response.json.getJSONObject("response").getJSONArray("items");
-                    for (int i = 0; i < idsArray.length(); i++) {
-                        int id = idsArray.getInt(i);
-                        if (id == target) {
-                            int[] res = {
-                                    self,
-                                    target
-                            };
-                            notifyPathFound(res);
-                            return;
-                        }
-                        selfIds.add(id);
-                        selfTree.addChild(new Node(id, selfTree));
-                    }
-                } catch (JSONException e) {
-                    Log.e(TAG, "Self friends processing error");
-                    e.printStackTrace();
+        VKRequest request = VKApi.friends().get(VKParameters.from(VKApiConst.USER_ID, selfId));
+        request.executeSyncWithListener(new SimpleCallback(response -> {
+
+            JSONArray friendsIds = response.json
+                    .getJSONObject("response")
+                    .getJSONArray("items");
+
+            for (int i = 0; i < friendsIds.length(); i++) {
+                int id = friendsIds.getInt(i);
+                if (id == targetId) {
+                    int[] res = {
+                            selfId,
+                            targetId
+                    };
+                    notifyPathFound(res);
+                    return;
                 }
+                selfFriendsIds.add(id);
+                selfFriendsTree.addChild(new Node(id, selfFriendsTree));
             }
-        });
+        }));
     }
 
     // Second step processing
     public void secondStepProcessing() {
-        VKRequest request = VKApi.friends().get(VKParameters.from(VKApiConst.USER_ID, target));
-        request.executeSyncWithListener(new VKRequest.VKRequestListener() {
-            @Override
-            public void onComplete(VKResponse response) {
-                try {
-                    JSONArray idsArray = response.json.getJSONObject("response").getJSONArray("items");
-                    for (int i = 0; i < idsArray.length(); i++) {
-                        int id = idsArray.getInt(i);
-                        if (selfIds.contains(id)) {
-                            int[] res = {
-                                    self,
-                                    id,
-                                    target
-                            };
-                            notifyPathFound(res);
-                            return;
-                        }
-                        targetIds.add(i);
-                        targetTree.addChild(new Node(id, targetTree));
-                    }
-                } catch (JSONException e) {
-                    Log.e(TAG, "Self friends processing error");
-                    e.printStackTrace();
+        VKRequest request = VKApi.friends().get(VKParameters.from(VKApiConst.USER_ID, targetId));
+        request.executeSyncWithListener(new SimpleCallback(response -> {
+
+            JSONArray friendsIds = response.json
+                    .getJSONObject("response")
+                    .getJSONArray("items");
+
+            for (int i = 0; i < friendsIds.length(); i++) {
+                int id = friendsIds.getInt(i);
+                if (selfFriendsIds.contains(id)) {
+                    int[] res = {
+                            selfId,
+                            id,
+                            targetId
+                    };
+                    notifyPathFound(res);
+                    return;
                 }
+                targetFriendsIds.add(id);
+                targetFriendsTree.addChild(new Node(id, targetFriendsTree));
             }
-        });
+        }));
     }
 
 
     public void thirdStepProcessing() {
-        Map<Integer, Node> childrenMap = selfTree.getChildren();
-        for (String requestIds : RequestUtils.buildRequestStrings(childrenMap.keySet())) {
+        Map<Integer, Node> friendsMap = selfFriendsTree.getChildren();
+        for (String requestIds : RequestUtils.buildRequestStrings(friendsMap.keySet())) {
 
             VKRequest request = new VKRequest("execute.friend_ids", VKParameters.from("users", requestIds));
-            request.executeSyncWithListener(new VKRequest.VKRequestListener() {
-                @Override
-                public void onComplete(VKResponse response) {
-                    try {
-                        JSONArray jsonResponse = response.json.getJSONArray("response");
-                        for (int i = 0; i < jsonResponse.length(); i++) {
-                            JSONArray a = jsonResponse.getJSONObject(i).getJSONArray("items");
-                            int parentId = jsonResponse.getJSONObject(i).getInt("id");
-                            for (int j = 0; j < a.length(); j++) {
-                                int id = a.getInt(j);
+            request.executeSyncWithListener(new SimpleCallback(response -> {
 
-                                selfIds.add(id);
+                JSONArray jsonResponse = response.json.getJSONArray("response");
 
-                                Node node = childrenMap.get(parentId);
-                                node.addChild(new Node(id, node));
+                for (int i = 0; i < jsonResponse.length(); i++) {
 
-                                if (targetIds.contains(id)) {
-                                    int[] res = {
-                                            self,
-                                            selfTree.search(id).getParent().getId(),
-                                            id,
-                                            target
-                                    };
-                                    notifyPathFound(res);
-                                    return;
-                                }
-                            }
+                    int userId = jsonResponse.getJSONObject(i).getInt("id");
+                    JSONArray friendsIds = jsonResponse.getJSONObject(i).getJSONArray("items");
+
+                    for (int j = 0; j < friendsIds.length(); j++) {
+                        int id = friendsIds.getInt(j);
+
+                        selfFriendsIds.add(id);
+
+                        Node node = friendsMap.get(userId);
+                        node.addChild(new Node(id, node));
+
+                        if (targetFriendsIds.contains(id)) {
+                            int[] res = {
+                                    selfId,
+                                    selfFriendsTree.search(id).getParent().getId(),
+                                    id,
+                                    targetId
+                            };
+                            notifyPathFound(res);
+                            return;
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
                 }
-            });
+            }));
         }
     }
 
     public void fourthStepProcessing() {
-        Map<Integer, Node> childrenMap = targetTree.getChildren();
-        for (String requestIds : RequestUtils.buildRequestStrings(childrenMap.keySet())) {
+        Map<Integer, Node> friendsMap = targetFriendsTree.getChildren();
+        for (String requestIds : RequestUtils.buildRequestStrings(friendsMap.keySet())) {
 
             VKRequest request = new VKRequest("execute.friend_ids", VKParameters.from("users", requestIds));
-            request.executeSyncWithListener(new VKRequest.VKRequestListener() {
-                @Override
-                public void onComplete(VKResponse response) {
-                    try {
-                        JSONArray jsonResponse = response.json.getJSONArray("response");
-                        for (int i = 0; i < jsonResponse.length(); i++) {
-                            JSONArray a = jsonResponse.getJSONObject(i).getJSONArray("items");
-                            int parentId = jsonResponse.getJSONObject(i).getInt("id");
-                            for (int j = 0; j < a.length(); j++) {
-                                int id = a.getInt(j);
+            request.executeSyncWithListener(new SimpleCallback(response -> {
 
-                                targetIds.add(id);
+                JSONArray jsonResponse = response.json.getJSONArray("response");
 
-                                Node node = childrenMap.get(parentId);
-                                node.addChild(new Node(id, node));
+                for (int i = 0; i < jsonResponse.length(); i++) {
 
-                                if (selfIds.contains(id)) {
-                                    int[] res = {
-                                            self,
-                                            selfTree.search(id).getParent().getId(),
-                                            id,
-                                            targetTree.search(id).getParent().getId(),
-                                            target
-                                    };
-                                    notifyPathFound(res);
-                                    return;
-                                }
-                            }
+                    int userId = jsonResponse.getJSONObject(i).getInt("id");
+                    JSONArray friendsIds = jsonResponse.getJSONObject(i).getJSONArray("items");
+
+                    for (int j = 0; j < friendsIds.length(); j++) {
+                        int id = friendsIds.getInt(j);
+
+                        targetFriendsIds.add(id);
+
+                        Node node = friendsMap.get(userId);
+                        node.addChild(new Node(id, node));
+
+                        if (selfFriendsIds.contains(id)) {
+                            int[] res = {
+                                    selfId,
+                                    selfFriendsTree.search(id).getParent().getId(),
+                                    id,
+                                    targetFriendsTree.search(id).getParent().getId(),
+                                    targetId
+                            };
+                            notifyPathFound(res);
+                            return;
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
                 }
-            });
+            }));
         }
     }
 

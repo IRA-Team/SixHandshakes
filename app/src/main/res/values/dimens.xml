@@ -5,4 +5,11 @@
     
     <dimen name="activity_main_buttons_height">56dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="delimiter_width">36dp</dimen>
+    <dimen name="delimiter_height">36dp</dimen>
+    <dimen name="big_profile_width">125dp</dimen>
+    <dimen name="big_profile_height">125dp</dimen>
+    <dimen name="medium_profile_width">75dp</dimen>
+    <dimen name="medium_profile_height">75dp</dimen>
 </resources>

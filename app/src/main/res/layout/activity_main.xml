@@ -26,171 +26,142 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="vertical">
 
-
+                    <!-- Begin of self profile -->
                     <ImageView
-                        android:layout_width="125dp"
-                        android:layout_height="125dp"
-                        android:layout_gravity="center"
+                        android:layout_width="@dimen/big_profile_width"
+                        android:layout_height="@dimen/big_profile_height"
                         android:background="@drawable/circle_white"
                         android:padding="8dp"
                         android:scaleType="center"
-                        android:src="@drawable/ic_profile_blue_30dp"
                         app:user="@{viewModel.self}" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp"
                         android:textColor="@color/vk_white"
                         app:user="@{viewModel.self}" />
 
                     <com.irateam.sixhandshakes.ui.LoadingStub
                         android:id="@+id/loading_stub"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="4dp" />
+                        android:layout_height="wrap_content" />
+                    <!-- End of self profile -->
 
+                    <!-- Begin of firth profile -->
                     <ImageView
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
-                        android:layout_gravity="center"
+                        android:layout_width="@dimen/medium_profile_width"
+                        android:layout_height="@dimen/medium_profile_height"
                         android:background="@drawable/circle_white"
                         android:padding="8dp"
                         android:scaleType="center"
-                        android:src="@drawable/ic_profile_blue_30dp"
                         android:visibility="@{viewModel.first != null}"
                         app:user="@{viewModel.first}" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp"
                         android:textColor="@color/vk_white"
                         android:visibility="@{viewModel.first != null}"
                         app:user="@{viewModel.first}" />
 
-                    <com.irateam.sixhandshakes.ui.LoadingStub
-                        android:id="@+id/loading_stub1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="4dp"
-                        android:visibility="@{viewModel.first != null}" />
-
                     <ImageView
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
-                        android:layout_gravity="center"
+                        android:layout_width="@dimen/delimiter_width"
+                        android:layout_height="@dimen/delimiter_height"
+                        android:src="@drawable/ic_three_circle_white_36dp"
+                        android:visibility="@{viewModel.first != null}" />
+                    <!-- End of first profile -->
+
+                    <!-- Begin of second profile -->
+                    <ImageView
+                        android:layout_width="@dimen/medium_profile_width"
+                        android:layout_height="@dimen/medium_profile_height"
                         android:background="@drawable/circle_white"
                         android:padding="8dp"
                         android:scaleType="center"
-                        android:src="@drawable/ic_profile_blue_30dp"
                         android:visibility="@{viewModel.second!= null}"
                         app:user="@{viewModel.second}" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp"
                         android:textColor="@color/vk_white"
                         android:visibility="@{viewModel.second != null}"
                         app:user="@{viewModel.second}" />
 
-                    <com.irateam.sixhandshakes.ui.LoadingStub
-                        android:id="@+id/loading_stub2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="4dp"
-                        android:visibility="@{viewModel.second!= null}" />
-
                     <ImageView
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
-                        android:layout_gravity="center"
+                        android:layout_width="@dimen/delimiter_width"
+                        android:layout_height="@dimen/delimiter_height"
+                        android:src="@drawable/ic_three_circle_white_36dp"
+                        android:visibility="@{viewModel.second != null}" />
+                    <!-- End of second profile -->
+
+                    <!-- Begin of third profile -->
+                    <ImageView
+                        android:layout_width="@dimen/medium_profile_width"
+                        android:layout_height="@dimen/medium_profile_height"
                         android:background="@drawable/circle_white"
                         android:padding="8dp"
                         android:scaleType="center"
-                        android:src="@drawable/ic_profile_blue_30dp"
                         android:visibility="@{viewModel.third != null}"
                         app:user="@{viewModel.third}" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp"
                         android:textColor="@color/vk_white"
                         android:visibility="@{viewModel.third != null}"
                         app:user="@{viewModel.third}" />
 
-                    <com.irateam.sixhandshakes.ui.LoadingStub
-                        android:id="@+id/loading_stub3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="4dp"
+                    <ImageView
+                        android:layout_width="@dimen/delimiter_width"
+                        android:layout_height="@dimen/delimiter_height"
+                        android:src="@drawable/ic_three_circle_white_36dp"
                         android:visibility="@{viewModel.third != null}" />
+                    <!-- End of third profile -->
 
-
+                    <!-- Begin of fourth profile -->
                     <ImageView
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
-                        android:layout_gravity="center"
+                        android:layout_width="@dimen/medium_profile_width"
+                        android:layout_height="@dimen/medium_profile_height"
                         android:background="@drawable/circle_white"
                         android:padding="8dp"
                         android:scaleType="center"
-                        android:src="@drawable/ic_profile_blue_30dp"
                         android:visibility="@{viewModel.fourth != null}"
                         app:user="@{viewModel.fourth}" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp"
                         android:textColor="@color/vk_white"
                         android:visibility="@{viewModel.fourth != null}"
                         app:user="@{viewModel.fourth}" />
 
-                    <com.irateam.sixhandshakes.ui.LoadingStub
-                        android:id="@+id/loading_stub4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="4dp"
-                        android:visibility="@{viewModel.fourth != null}" />
-
                     <ImageView
-                        android:layout_width="125dp"
-                        android:layout_height="125dp"
-                        android:layout_gravity="center"
+                        android:layout_width="@dimen/delimiter_width"
+                        android:layout_height="@dimen/delimiter_height"
+                        android:src="@drawable/ic_three_circle_white_36dp"
+                        android:visibility="@{viewModel.fourth != null}" />
+                    <!-- End of fourth profile -->
+
+                    <!-- Begin of target profile -->
+                    <ImageView
+                        android:layout_width="@dimen/big_profile_width"
+                        android:layout_height="@dimen/big_profile_height"
                         android:background="@drawable/circle_white"
                         android:padding="8dp"
                         android:scaleType="center"
-                        android:src="@drawable/ic_profile_blue_30dp"
                         app:onClick="@{viewModel.openSearch}"
                         app:user="@{viewModel.target}" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp"
                         android:textColor="@color/vk_white"
                         app:user="@{viewModel.target}" />
+                    <!-- End of target profile -->
 
                     <Button
                         style="@style/ButtonMainActivity.White"
