@@ -1,5 +1,6 @@
 package com.irateam.sixhandshakes.viewmodel;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -33,6 +34,7 @@ public class MainActivityVM extends ActivityViewModel<MainActivity, ActivityMain
 
     public ObservableBoolean isProcessing = new ObservableBoolean();
     public ObservableBoolean isLoggedIn = new ObservableBoolean();
+    public ObservableBoolean isFinished = new ObservableBoolean();
 
     public ObservableField<VKApiUser> self = new ObservableField<>();
     public ObservableField<VKApiUser> first = new ObservableField<>();
@@ -51,6 +53,7 @@ public class MainActivityVM extends ActivityViewModel<MainActivity, ActivityMain
         getActivity().startService(new Intent(getActivity(), RequestService.class));
         getActivity().bindService(new Intent(getActivity(), RequestService.class), this, 0);
         isProcessing.set(true);
+        isFinished.set(false);
     }
 
     public void stopProcessing() {
@@ -58,6 +61,7 @@ public class MainActivityVM extends ActivityViewModel<MainActivity, ActivityMain
     }
 
     public void clear() {
+        isFinished.set(false);
         first.set(null);
         second.set(null);
         third.set(null);
@@ -137,7 +141,7 @@ public class MainActivityVM extends ActivityViewModel<MainActivity, ActivityMain
             }
         });
 
-        if (requestCode == SEARCH_REQUEST_CODE) {
+        if (requestCode == SEARCH_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             target.set(data.getParcelableExtra("user"));
         }
     }

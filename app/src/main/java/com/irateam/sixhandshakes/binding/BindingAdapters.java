@@ -5,9 +5,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.irateam.sixhandshakes.ui.AnimatedRoundedDisplayer;
+import com.irateam.sixhandshakes.utils.VKUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.vk.sdk.api.model.VKApiUser;
 
 public final class BindingAdapters {
@@ -16,7 +17,7 @@ public final class BindingAdapters {
 
     static {
         options = new DisplayImageOptions.Builder()
-                .displayer(new RoundedBitmapDisplayer(10000))
+                .displayer(new AnimatedRoundedDisplayer(10000))
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .build();
@@ -43,6 +44,9 @@ public final class BindingAdapters {
     public static void visibility(TextView view, VKApiUser user) {
         if (user != null) {
             view.setText(user.first_name + " " + user.last_name);
+            view.setOnClickListener(v -> VKUtils.openVKProfile(v.getContext(), user.id));
+        } else {
+            view.setOnClickListener(v -> {});
         }
     }
 

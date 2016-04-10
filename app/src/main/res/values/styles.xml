@@ -1,8 +1,20 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
         <item name="colorPrimary">@color/main_activity_background</item>
         <item name="colorPrimaryDark">@color/main_activity_background</item>
+    </style>
+
+    <style name="AppTheme.TransparentActionBar">
+        <item name="android:actionBarStyle">@style/TransparentActionBar</item>
+        <item name="actionBarStyle">@style/TransparentActionBar</item>
+    </style>
+
+    <style name="TransparentActionBar" parent="Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="android:background">@null</item>
+        <item name="background">@null</item>
     </style>
 
     <style name="ButtonMainActivity">
@@ -25,8 +37,37 @@
         <item name="android:textColor">@color/github_button_text_color</item>
     </style>
 
+    <style name="NameSurname">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_marginTop">@dimen/margin_small</item>
+    </style>
+
+    <style name="PrimaryPhoto">
+        <item name="android:layout_width">@dimen/big_profile_width</item>
+        <item name="android:layout_height">@dimen/big_profile_height</item>
+        <item name="android:background">@drawable/circle_white</item>
+        <item name="android:padding">@dimen/padding_small</item>
+        <item name="android:scaleType">center</item>
+    </style>
+
+    <style name="SecondaryPhoto">
+        <item name="android:layout_width">@dimen/medium_profile_width</item>
+        <item name="android:layout_height">@dimen/medium_profile_height</item>
+        <item name="android:background">@drawable/circle_white</item>
+        <item name="android:padding">@dimen/padding_small</item>
+        <item name="android:scaleType">center</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:layout_width">@dimen/divider_width</item>
+        <item name="android:layout_height">@dimen/divider_height</item>
+        <item name="android:layout_margin">@dimen/margin_medium</item>
+        <item name="android:src">@drawable/ic_three_circle_white_36dp</item>
+    </style>
+
     <style name="AppTheme.FloatingActionButtonWhite" parent="Widget.Design.FloatingActionButton">
         <item name="backgroundTint">@android:color/white</item>
     </style>
 
+    <dimen name="padding_small">8dp</dimen>
 </resources>

@@ -36,11 +36,11 @@ public class RequestService extends Service {
     private Node selfFriendsTree;
     private Node targetFriendsTree;
 
-    private Set<Integer> selfFriendsIds;
-    private Set<Integer> targetFriendsIds;
+    private Set<Integer> selfFriendIds;
+    private Set<Integer> targetFriendIds;
 
     private int[] resultPath;
-    
+
     public void start(int self, int target) {
         this.selfId = self;
         this.targetId = target;
@@ -50,11 +50,11 @@ public class RequestService extends Service {
         selfFriendsTree = new Node(self);
         targetFriendsTree = new Node(target);
 
-        selfFriendsIds = new LinkedHashSet<Integer>() {{
+        selfFriendIds = new LinkedHashSet<Integer>() {{
             add(self);
         }};
 
-        targetFriendsIds = new LinkedHashSet<Integer>() {{
+        targetFriendIds = new LinkedHashSet<Integer>() {{
             add(target);
         }};
 
@@ -76,12 +76,12 @@ public class RequestService extends Service {
         VKRequest request = VKApi.friends().get(VKParameters.from(VKApiConst.USER_ID, selfId));
         request.executeSyncWithListener(new SimpleCallback(response -> {
 
-            JSONArray friendsIds = response.json
+            JSONArray friendIds = response.json
                     .getJSONObject("response")
                     .getJSONArray("items");
 
-            for (int i = 0; i < friendsIds.length(); i++) {
-                int id = friendsIds.getInt(i);
+            for (int i = 0; i < friendIds.length(); i++) {
+                int id = friendIds.getInt(i);
                 if (id == targetId) {
                     int[] res = {
                             selfId,
@@ -90,7 +90,7 @@ public class RequestService extends Service {
                     notifyPathFound(res);
                     return;
                 }
-                selfFriendsIds.add(id);
+                selfFriendIds.add(id);
                 selfFriendsTree.addChild(new Node(id, selfFriendsTree));
             }
         }));
@@ -101,13 +101,13 @@ public class RequestService extends Service {
         VKRequest request = VKApi.friends().get(VKParameters.from(VKApiConst.USER_ID, targetId));
         request.executeSyncWithListener(new SimpleCallback(response -> {
 
-            JSONArray friendsIds = response.json
+            JSONArray friendIds = response.json
                     .getJSONObject("response")
                     .getJSONArray("items");
 
-            for (int i = 0; i < friendsIds.length(); i++) {
-                int id = friendsIds.getInt(i);
-                if (selfFriendsIds.contains(id)) {
+            for (int i = 0; i < friendIds.length(); i++) {
+                int id = friendIds.getInt(i);
+                if (selfFriendIds.contains(id)) {
                     int[] res = {
                             selfId,
                             id,
@@ -116,7 +116,7 @@ public class RequestService extends Service {
                     notifyPathFound(res);
                     return;
                 }
-                targetFriendsIds.add(id);
+                targetFriendIds.add(id);
                 targetFriendsTree.addChild(new Node(id, targetFriendsTree));
             }
         }));
@@ -135,17 +135,17 @@ public class RequestService extends Service {
                 for (int i = 0; i < jsonResponse.length(); i++) {
 
                     int userId = jsonResponse.getJSONObject(i).getInt("id");
-                    JSONArray friendsIds = jsonResponse.getJSONObject(i).getJSONArray("items");
+                    JSONArray friendIds = jsonResponse.getJSONObject(i).getJSONArray("items");
 
-                    for (int j = 0; j < friendsIds.length(); j++) {
-                        int id = friendsIds.getInt(j);
+                    for (int j = 0; j < friendIds.length(); j++) {
+                        int id = friendIds.getInt(j);
 
-                        selfFriendsIds.add(id);
+                        selfFriendIds.add(id);
 
                         Node node = friendsMap.get(userId);
                         node.addChild(new Node(id, node));
 
-                        if (targetFriendsIds.contains(id)) {
+                        if (targetFriendIds.contains(id)) {
                             int[] res = {
                                     selfId,
                                     selfFriendsTree.search(id).getParent().getId(),
@@ -173,17 +173,17 @@ public class RequestService extends Service {
                 for (int i = 0; i < jsonResponse.length(); i++) {
 
                     int userId = jsonResponse.getJSONObject(i).getInt("id");
-                    JSONArray friendsIds = jsonResponse.getJSONObject(i).getJSONArray("items");
+                    JSONArray friendIds = jsonResponse.getJSONObject(i).getJSONArray("items");
 
-                    for (int j = 0; j < friendsIds.length(); j++) {
-                        int id = friendsIds.getInt(j);
+                    for (int j = 0; j < friendIds.length(); j++) {
+                        int id = friendIds.getInt(j);
 
-                        targetFriendsIds.add(id);
+                        targetFriendIds.add(id);
 
                         Node node = friendsMap.get(userId);
                         node.addChild(new Node(id, node));
 
-                        if (selfFriendsIds.contains(id)) {
+                        if (selfFriendIds.contains(id)) {
                             int[] res = {
                                     selfId,
                                     selfFriendsTree.search(id).getParent().getId(),

@@ -9,191 +9,165 @@
             type="com.irateam.sixhandshakes.viewmodel.MainActivityVM" />
     </data>
 
-    <RelativeLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/main_activity_background">
 
-        <android.support.design.widget.CoordinatorLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_medium">
 
-            <ScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <!-- Begin of self profile -->
+                <ImageView
+                    style="@style/PrimaryPhoto"
+                    app:user="@{viewModel.self}" />
+
+                <TextView
+                    style="@style/NameSurname"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    app:user="@{viewModel.self}" />
 
-                    <!-- Begin of self profile -->
-                    <ImageView
-                        android:layout_width="@dimen/big_profile_width"
-                        android:layout_height="@dimen/big_profile_height"
-                        android:background="@drawable/circle_white"
-                        android:padding="8dp"
-                        android:scaleType="center"
-                        app:user="@{viewModel.self}" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/vk_white"
-                        app:user="@{viewModel.self}" />
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
                     <com.irateam.sixhandshakes.ui.LoadingStub
                         android:id="@+id/loading_stub"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <!-- End of self profile -->
-
-                    <!-- Begin of firth profile -->
-                    <ImageView
-                        android:layout_width="@dimen/medium_profile_width"
-                        android:layout_height="@dimen/medium_profile_height"
-                        android:background="@drawable/circle_white"
-                        android:padding="8dp"
-                        android:scaleType="center"
-                        android:visibility="@{viewModel.first != null}"
-                        app:user="@{viewModel.first}" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/vk_white"
-                        android:visibility="@{viewModel.first != null}"
-                        app:user="@{viewModel.first}" />
+                        android:visibility="@{viewModel.first == null}" />
 
                     <ImageView
-                        android:layout_width="@dimen/delimiter_width"
-                        android:layout_height="@dimen/delimiter_height"
-                        android:src="@drawable/ic_three_circle_white_36dp"
+                        style="@style/Divider"
                         android:visibility="@{viewModel.first != null}" />
-                    <!-- End of first profile -->
 
-                    <!-- Begin of second profile -->
-                    <ImageView
-                        android:layout_width="@dimen/medium_profile_width"
-                        android:layout_height="@dimen/medium_profile_height"
-                        android:background="@drawable/circle_white"
-                        android:padding="8dp"
-                        android:scaleType="center"
-                        android:visibility="@{viewModel.second!= null}"
-                        app:user="@{viewModel.second}" />
+                </FrameLayout>
+                <!-- End of self profile -->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/vk_white"
-                        android:visibility="@{viewModel.second != null}"
-                        app:user="@{viewModel.second}" />
+                <!-- Begin of firth profile -->
+                <ImageView
+                    style="@style/SecondaryPhoto"
+                    android:visibility="@{viewModel.first != null}"
+                    app:user="@{viewModel.first}" />
 
-                    <ImageView
-                        android:layout_width="@dimen/delimiter_width"
-                        android:layout_height="@dimen/delimiter_height"
-                        android:src="@drawable/ic_three_circle_white_36dp"
-                        android:visibility="@{viewModel.second != null}" />
-                    <!-- End of second profile -->
+                <TextView
+                    style="@style/NameSurname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewModel.first != null}"
+                    app:user="@{viewModel.first}" />
 
-                    <!-- Begin of third profile -->
-                    <ImageView
-                        android:layout_width="@dimen/medium_profile_width"
-                        android:layout_height="@dimen/medium_profile_height"
-                        android:background="@drawable/circle_white"
-                        android:padding="8dp"
-                        android:scaleType="center"
-                        android:visibility="@{viewModel.third != null}"
-                        app:user="@{viewModel.third}" />
+                <ImageView
+                    style="@style/Divider"
+                    android:visibility="@{viewModel.first != null}" />
+                <!-- End of first profile -->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/vk_white"
-                        android:visibility="@{viewModel.third != null}"
-                        app:user="@{viewModel.third}" />
+                <!-- Begin of second profile -->
+                <ImageView
+                    style="@style/SecondaryPhoto"
+                    android:visibility="@{viewModel.second!= null}"
+                    app:user="@{viewModel.second}" />
 
-                    <ImageView
-                        android:layout_width="@dimen/delimiter_width"
-                        android:layout_height="@dimen/delimiter_height"
-                        android:src="@drawable/ic_three_circle_white_36dp"
-                        android:visibility="@{viewModel.third != null}" />
-                    <!-- End of third profile -->
+                <TextView
+                    style="@style/NameSurname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewModel.second != null}"
+                    app:user="@{viewModel.second}" />
 
-                    <!-- Begin of fourth profile -->
-                    <ImageView
-                        android:layout_width="@dimen/medium_profile_width"
-                        android:layout_height="@dimen/medium_profile_height"
-                        android:background="@drawable/circle_white"
-                        android:padding="8dp"
-                        android:scaleType="center"
-                        android:visibility="@{viewModel.fourth != null}"
-                        app:user="@{viewModel.fourth}" />
+                <ImageView
+                    style="@style/Divider"
+                    android:visibility="@{viewModel.second != null}" />
+                <!-- End of second profile -->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/vk_white"
-                        android:visibility="@{viewModel.fourth != null}"
-                        app:user="@{viewModel.fourth}" />
+                <!-- Begin of third profile -->
+                <ImageView
+                    style="@style/SecondaryPhoto"
+                    android:visibility="@{viewModel.third != null}"
+                    app:user="@{viewModel.third}" />
 
-                    <ImageView
-                        android:layout_width="@dimen/delimiter_width"
-                        android:layout_height="@dimen/delimiter_height"
-                        android:src="@drawable/ic_three_circle_white_36dp"
-                        android:visibility="@{viewModel.fourth != null}" />
-                    <!-- End of fourth profile -->
+                <TextView
+                    style="@style/NameSurname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewModel.third != null}"
+                    app:user="@{viewModel.third}" />
 
-                    <!-- Begin of target profile -->
-                    <ImageView
-                        android:layout_width="@dimen/big_profile_width"
-                        android:layout_height="@dimen/big_profile_height"
-                        android:background="@drawable/circle_white"
-                        android:padding="8dp"
-                        android:scaleType="center"
-                        app:onClick="@{viewModel.openSearch}"
-                        app:user="@{viewModel.target}" />
+                <ImageView
+                    style="@style/Divider"
+                    android:visibility="@{viewModel.third != null}" />
+                <!-- End of third profile -->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/vk_white"
-                        app:user="@{viewModel.target}" />
-                    <!-- End of target profile -->
+                <!-- Begin of fourth profile -->
+                <ImageView
+                    style="@style/SecondaryPhoto"
+                    android:visibility="@{viewModel.fourth != null}"
+                    app:user="@{viewModel.fourth}" />
 
-                    <Button
-                        style="@style/ButtonMainActivity.White"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/vk"
-                        android:visibility="@{!viewModel.isLoggedIn}"
-                        app:onClick="@{viewModel.openLoginActivity}" />
+                <TextView
+                    style="@style/NameSurname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewModel.fourth != null}"
+                    app:user="@{viewModel.fourth}" />
 
-                    <Button
-                        style="@style/ButtonMainActivity.Blue"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/github"
-                        android:visibility="@{!viewModel.isLoggedIn}"
-                        app:onClick="@{viewModel.openGitHubPage}" />
+                <ImageView
+                    style="@style/Divider"
+                    android:visibility="@{viewModel.fourth != null}" />
+                <!-- End of fourth profile -->
 
+                <!-- Begin of target profile -->
+                <ImageView
+                    style="@style/PrimaryPhoto"
+                    app:onClick="@{viewModel.openSearch}"
+                    app:user="@{viewModel.target}" />
 
-                </LinearLayout>
-            </ScrollView>
+                <TextView
+                    style="@style/NameSurname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:user="@{viewModel.target}" />
+                <!-- End of target profile -->
 
-            <android.support.design.widget.FloatingActionButton
-                style="@style/AppTheme.FloatingActionButtonWhite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/fab_margin"
-                android:src="@{viewModel.isProcessing ? @drawable/ic_fab_stop_blue_24dp : @drawable/ic_fab_play_blue_24dp}"
-                android:visibility="@{viewModel.self != null &amp;&amp; viewModel.target != null}"
-                app:onClick="@{viewModel.isProcessing ? viewModel.stopProcessing : viewModel.startProcessing}" />
+                <Button
+                    style="@style/ButtonMainActivity.White"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vk"
+                    android:visibility="@{!viewModel.isLoggedIn}"
+                    app:onClick="@{viewModel.openLoginActivity}" />
 
-        </android.support.design.widget.CoordinatorLayout>
-    </RelativeLayout>
+                <Button
+                    style="@style/ButtonMainActivity.Blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/github"
+                    android:visibility="@{!viewModel.isLoggedIn}"
+                    app:onClick="@{viewModel.openGitHubPage}" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <android.support.design.widget.FloatingActionButton
+            style="@style/AppTheme.FloatingActionButtonWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@{viewModel.isProcessing ? @drawable/ic_fab_stop_blue_24dp : @drawable/ic_fab_play_blue_24dp}"
+            android:visibility="@{viewModel.self != null &amp;&amp; viewModel.target != null}"
+            app:onClick="@{viewModel.isProcessing ? (viewModel.isFinished ? viewModel.clear : viewModel.stopProcessing) : viewModel.startProcessing}" />
+
+    </android.support.design.widget.CoordinatorLayout>
 
 </layout>
