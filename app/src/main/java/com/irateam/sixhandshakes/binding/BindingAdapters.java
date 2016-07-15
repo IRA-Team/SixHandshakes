@@ -37,6 +37,7 @@ public final class BindingAdapters {
     public static void displayPhotoAsyncById(ImageView target, VKApiUser user) {
         if (user != null) {
             ImageLoader.getInstance().displayImage(user.photo_200, target, options);
+            target.setOnClickListener(v -> VKUtils.openVKProfile(v.getContext(), user.id));
         }
     }
 

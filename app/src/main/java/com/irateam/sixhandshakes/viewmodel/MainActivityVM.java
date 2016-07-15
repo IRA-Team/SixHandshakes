@@ -127,10 +127,9 @@ public class MainActivityVM extends ActivityViewModel<MainActivity, ActivityMain
         VKSdk.onActivityResult(requestCode, resultCode, data, new VKCallback<VKAccessToken>() {
             @Override
             public void onResult(VKAccessToken res) {
-                /*
-                getSupportActionBar().setDisplayShowTitleEnabled(true);
-                getSupportActionBar().setTitle(getResources().getString(R.string.logout));
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
+                /*getActivity().getSupportActionBar().setDisplayShowTitleEnabled(true);
+                getActivity().getSupportActionBar().setTitle(getActivity().getResources().getString(R.string.logout));
+                getActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
 
                 isLoggedIn.set(true);
                 loadUserById(0, self);

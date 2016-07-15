@@ -24,6 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:orientation="vertical">
 
                 <!-- Begin of self profile -->
@@ -35,7 +36,7 @@
                     style="@style/NameSurname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:user="@{viewModel.self}" />
+                    app:user="@{viewModel.self}"/>
 
                 <FrameLayout
                     android:layout_width="wrap_content"
@@ -45,7 +46,8 @@
                         android:id="@+id/loading_stub"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:visibility="@{viewModel.first == null}" />
+                        android:visibility="@{viewModel.first == null}"
+                        android:layout_marginTop="@dimen/margin_medium"/>
 
                     <ImageView
                         style="@style/Divider"
@@ -75,7 +77,7 @@
                 <!-- Begin of second profile -->
                 <ImageView
                     style="@style/SecondaryPhoto"
-                    android:visibility="@{viewModel.second!= null}"
+                    android:visibility="@{viewModel.second != null}"
                     app:user="@{viewModel.second}" />
 
                 <TextView
@@ -145,7 +147,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/vk"
                     android:visibility="@{!viewModel.isLoggedIn}"
-                    app:onClick="@{viewModel.openLoginActivity}" />
+                    app:onClick="@{viewModel.openLoginActivity}"
+                    android:layout_marginTop="@dimen/margin_medium"/>
 
                 <Button
                     style="@style/ButtonMainActivity.Blue"
