@@ -57,7 +57,6 @@ public class MainActivityVM extends ActivityViewModel<MainActivity, ActivityMain
     }
 
     public void stopProcessing() {
-
     }
 
     public void clear() {

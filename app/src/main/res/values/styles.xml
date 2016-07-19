@@ -69,5 +69,4 @@
         <item name="backgroundTint">@android:color/white</item>
     </style>
 
-    <dimen name="padding_small">8dp</dimen>
 </resources>

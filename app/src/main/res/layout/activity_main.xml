@@ -17,15 +17,15 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="@dimen/padding_medium">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/padding_medium">
 
                 <!-- Begin of self profile -->
                 <ImageView
@@ -36,7 +36,8 @@
                     style="@style/NameSurname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:user="@{viewModel.self}"/>
+                    app:user="@{viewModel.self}"
+                    android:visibility="@{viewModel.self != null}"/>
 
                 <FrameLayout
                     android:layout_width="wrap_content"
@@ -138,7 +139,8 @@
                     style="@style/NameSurname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:user="@{viewModel.target}" />
+                    app:user="@{viewModel.target}"
+                    android:visibility="@{viewModel.target != null}"/>
                 <!-- End of target profile -->
 
                 <Button

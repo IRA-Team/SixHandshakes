@@ -16,5 +16,7 @@
     <dimen name="big_profile_height">125dp</dimen>
     <dimen name="medium_profile_width">85dp</dimen>
     <dimen name="medium_profile_height">85dp</dimen>
+
+    <dimen name="padding_small">8dp</dimen>
     <dimen name="padding_medium">16dp</dimen>
 </resources>
