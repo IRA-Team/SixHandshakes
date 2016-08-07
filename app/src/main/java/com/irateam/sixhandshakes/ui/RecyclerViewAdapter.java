@@ -27,6 +27,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<FriendViewHolder> 
         searchActivity = activity;
         options = new DisplayImageOptions.Builder()
                 .displayer(new RoundedBitmapDisplayer(10000))
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
                 .build();
     }
 

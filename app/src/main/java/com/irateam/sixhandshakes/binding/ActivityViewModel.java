@@ -3,6 +3,7 @@ package com.irateam.sixhandshakes.binding;
 import android.app.Activity;
 import android.content.Intent;
 import android.databinding.ViewDataBinding;
+import android.view.Menu;
 import android.view.MenuItem;
 
 public abstract class ActivityViewModel<A extends BindingActivity, B extends ViewDataBinding> {
@@ -19,7 +20,6 @@ public abstract class ActivityViewModel<A extends BindingActivity, B extends Vie
     }
 
     /**
-     *
      * @param activity
      * @param binding
      */
@@ -38,6 +38,10 @@ public abstract class ActivityViewModel<A extends BindingActivity, B extends Vie
     public final void setActivityResultAndFinish(Intent intent) {
         activity.setResult(Activity.RESULT_OK, intent);
         activity.finish();
+    }
+
+    public boolean onCreateOptionMenu(Menu menu) {
+        return false;
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

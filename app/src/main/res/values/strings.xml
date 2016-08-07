@@ -4,4 +4,5 @@
     <string name="github">GITHUB/IRA-TEAM</string>
     <string name="logout">Logout</string>
     <string name="title_menu_search">Search</string>
+    <string name="target_user_hint">Click to select target</string>
 </resources>

@@ -19,4 +19,7 @@
 
     <dimen name="padding_small">8dp</dimen>
     <dimen name="padding_medium">16dp</dimen>
+
+    <dimen name="font_normal">12dp</dimen>
+    <dimen name="font_medium">14dp</dimen>
 </resources>

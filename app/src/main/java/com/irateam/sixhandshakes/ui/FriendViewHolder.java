@@ -9,14 +9,17 @@ import com.irateam.sixhandshakes.R;
 
 public class FriendViewHolder extends RecyclerView.ViewHolder {
 
-    ImageView photo;
-    TextView name;
-    TextView id;
+    public final ImageView photo;
+    public final TextView name;
+    public final TextView id;
 
     public FriendViewHolder(View view) {
         super(view);
+        setIsRecyclable(false);
         photo = (ImageView) view.findViewById(R.id.photo);
         name = (TextView) view.findViewById(R.id.name);
         id = (TextView) view.findViewById(R.id.id);
     }
+
+
 }

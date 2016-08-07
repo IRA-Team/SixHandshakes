@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.irateam.sixhandshakes">
+          package="com.irateam.sixhandshakes">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".Application"
@@ -11,25 +11,32 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.TransparentActionBar">
-        <activity
-            android:name=".activity.MainActivity"
-            android:configChanges="orientation|screenSize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+        <activity android:name=".activity.ProxyActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activity.MainActivity"
+            android:configChanges="orientation|screenSize"/>
+
         <activity
             android:name="com.vk.sdk.VKServiceActivity"
             android:label="ServiceActivity"
-            android:theme="@style/VK.Transparent" />
+            android:theme="@style/VK.Transparent"/>
+
         <activity
             android:name=".activity.SearchActivity"
-            android:theme="@style/AppTheme"
-            android:configChanges="orientation|screenSize" />
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/AppTheme"/>
 
-        <service android:name=".service.RequestService" />
+        <service android:name=".service.RequestService"/>
+
+        <activity android:name=".activity.LoginActivity"/>
     </application>
 
 </manifest>
