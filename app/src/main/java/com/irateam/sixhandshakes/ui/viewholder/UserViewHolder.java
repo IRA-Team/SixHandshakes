@@ -1,4 +1,4 @@
-package com.irateam.sixhandshakes.ui;
+package com.irateam.sixhandshakes.ui.viewholder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -7,13 +7,13 @@ import android.widget.TextView;
 
 import com.irateam.sixhandshakes.R;
 
-public class FriendViewHolder extends RecyclerView.ViewHolder {
+public class UserViewHolder extends RecyclerView.ViewHolder {
 
     public final ImageView photo;
     public final TextView name;
     public final TextView id;
 
-    public FriendViewHolder(View view) {
+    public UserViewHolder(View view) {
         super(view);
         setIsRecyclable(false);
         photo = (ImageView) view.findViewById(R.id.photo);

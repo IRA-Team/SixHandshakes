@@ -8,8 +8,8 @@ import android.os.IBinder;
 import android.os.Looper;
 
 import com.irateam.sixhandshakes.model.Node;
-import com.irateam.sixhandshakes.utils.RequestUtils;
-import com.irateam.sixhandshakes.utils.SimpleCallback;
+import com.irateam.sixhandshakes.util.RequestUtils;
+import com.irateam.sixhandshakes.util.SimpleCallback;
 import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
 import com.vk.sdk.api.VKParameters;

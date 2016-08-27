@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.assist.LoadedFrom;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
@@ -18,7 +17,6 @@ public class AnimatedRoundedDisplayer extends RoundedBitmapDisplayer {
     public AnimatedRoundedDisplayer(int cornerRadiusPixels, int marginPixels) {
         super(cornerRadiusPixels, marginPixels);
     }
-
 
     @Override
     public void display(Bitmap bitmap, ImageAware imageAware, LoadedFrom loadedFrom) {

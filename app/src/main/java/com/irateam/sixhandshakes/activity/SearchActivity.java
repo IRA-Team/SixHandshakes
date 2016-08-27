@@ -10,8 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.irateam.sixhandshakes.R;
-import com.irateam.sixhandshakes.ui.RecyclerViewAdapter;
-import com.irateam.sixhandshakes.utils.SimpleCallback;
+import com.irateam.sixhandshakes.ui.adapter.UsersRecyclerAdapter;
+import com.irateam.sixhandshakes.util.SimpleCallback;
 import com.vk.sdk.api.VKApiConst;
 import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.methods.VKApiUsers;
@@ -25,16 +25,14 @@ import java.util.List;
 public class SearchActivity extends AppCompatActivity {
 
     private final VKApiUsers VKUsers = new VKApiUsers();
+    private final UsersRecyclerAdapter adapter = new UsersRecyclerAdapter();
 
     private RecyclerView recyclerView;
-    private RecyclerViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
-        adapter = new RecyclerViewAdapter(this);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -68,7 +66,7 @@ public class SearchActivity extends AppCompatActivity {
             for (int i = 0; i < array.length(); i++) {
                 friends.add(new VKApiUserFull(array.getJSONObject(i)));
             }
-            adapter.setFriends(friends);
+            adapter.setUsers(friends);
             adapter.notifyDataSetChanged();
         }));
     }

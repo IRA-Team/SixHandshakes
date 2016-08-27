@@ -1,6 +1,6 @@
 package com.irateam.sixhandshakes;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.irateam.sixhandshakes.util.ImageLoaderUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.vk.sdk.VKSdk;
@@ -12,13 +12,10 @@ public class Application extends android.app.Application {
         super.onCreate();
         VKSdk.initialize(this);
 
-        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .build();
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
-                .defaultDisplayImageOptions(defaultOptions)
+                .defaultDisplayImageOptions(ImageLoaderUtils.DEFAULT_IMAGE_OPTIONS)
                 .build();
+
         ImageLoader.getInstance().init(config);
     }
 }

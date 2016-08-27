@@ -1,4 +1,4 @@
-package com.irateam.sixhandshakes.utils;
+package com.irateam.sixhandshakes.util;
 
 import android.content.Context;
 import android.content.Intent;

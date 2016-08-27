@@ -1,4 +1,4 @@
-package com.irateam.sixhandshakes.utils;
+package com.irateam.sixhandshakes.util;
 
 import com.vk.sdk.api.VKError;
 import com.vk.sdk.api.VKRequest;
@@ -19,7 +19,6 @@ public class SimpleCallback extends VKRequest.VKRequestListener {
             try {
                 completeListener.onComplete(response);
             } catch (Exception ignored) {
-
             }
         }
     }
@@ -30,11 +29,9 @@ public class SimpleCallback extends VKRequest.VKRequestListener {
             try {
                 errorListener.onError(error);
             } catch (Exception ignored) {
-
             }
         }
     }
-
 
     public interface VKCompleteListener {
         void onComplete(VKResponse response) throws Exception;

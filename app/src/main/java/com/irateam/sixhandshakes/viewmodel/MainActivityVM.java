@@ -15,7 +15,7 @@ import com.irateam.sixhandshakes.activity.SearchActivity;
 import com.irateam.sixhandshakes.binding.ActivityViewModel;
 import com.irateam.sixhandshakes.databinding.ActivityMainBinding;
 import com.irateam.sixhandshakes.service.RequestService;
-import com.irateam.sixhandshakes.utils.SimpleCallback;
+import com.irateam.sixhandshakes.util.SimpleCallback;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;

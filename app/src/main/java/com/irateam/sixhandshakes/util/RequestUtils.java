@@ -1,4 +1,4 @@
-package com.irateam.sixhandshakes.utils;
+package com.irateam.sixhandshakes.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
