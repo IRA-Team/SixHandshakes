@@ -4,7 +4,7 @@ SixHandshakes - free open-source application for Android that allows users confi
 
 ## Wiki
 
-[How does it works?](https://github.com/IRA-Team/SixHandshakes/wiki/How-does-it-work%3F)
+[How does it work?](https://github.com/IRA-Team/SixHandshakes/wiki/How-does-it-work%3F)
 
 ## Last version
 
