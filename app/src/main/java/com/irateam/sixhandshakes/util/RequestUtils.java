@@ -8,6 +8,10 @@ public final class RequestUtils {
 
     public static final int MAX_USER_COUNT = 25;
 
+    private RequestUtils() {
+        throw new AssertionError(getClass().getName() + " can't be instantiated");
+    }
+
     public static List<String> buildRequestStrings(Collection<Integer> idsCollection) {
         List<Integer> idsList = new ArrayList<>(idsCollection);
         int iterationCount = (int) Math.ceil(idsList.size() / (double) MAX_USER_COUNT);

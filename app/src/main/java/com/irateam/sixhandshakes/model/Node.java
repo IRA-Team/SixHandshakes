@@ -73,7 +73,9 @@ public class Node {
         }
         for (Map.Entry<Integer, Node> entry : node.children.entrySet()) {
             Node res = search(id, entry.getValue());
-            if (res != null) return res;
+            if (res != null) {
+                return res;
+            }
         }
         return null;
     }

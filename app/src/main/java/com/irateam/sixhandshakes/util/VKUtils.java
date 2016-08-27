@@ -5,10 +5,14 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 
-public class VKUtils {
+public final class VKUtils {
 
     public static final String VK_PACKAGE_URI = "com.vkontakte.android";
     public static final String VK_URL = "http://vk.com/";
+
+    private VKUtils() {
+        throw new AssertionError(getClass().getName() + " can't be instantiated");
+    }
 
     public static void openVKProfile(Context context, int vkUserId) {
         if (isVKAppInstalled(context)) {

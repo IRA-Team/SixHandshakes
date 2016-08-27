@@ -16,7 +16,7 @@ public final class ImageLoaderUtils {
     }
 
     private ImageLoaderUtils() {
-        throw new AssertionError("ImageLoaderUtils class can't be instantiated");
+        throw new AssertionError(getClass().getName() + " can't be instantiated");
     }
 
 }

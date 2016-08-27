@@ -6,9 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.irateam.sixhandshakes.R;
-import com.irateam.sixhandshakes.util.ImageLoaderUtils;
 import com.irateam.sixhandshakes.ui.viewholder.UserViewHolder;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.vk.sdk.api.model.VKApiUserFull;
 
 import java.util.ArrayList;
@@ -28,10 +26,8 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<UserViewHolder> {
     @Override
     public void onBindViewHolder(UserViewHolder holder, int position) {
         final VKApiUserFull user = users.get(position);
-        holder.name.setText(user.first_name + " " + user.last_name);
+        holder.setUser(user);
         holder.itemView.setOnClickListener(v -> notifyOnUserClicked(user));
-        holder.id.setText("ID: " + user.id);
-        ImageLoader.getInstance().displayImage(user.photo_100, holder.photo, ImageLoaderUtils.DEFAULT_IMAGE_OPTIONS);
     }
 
     @Override
@@ -45,6 +41,10 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<UserViewHolder> {
 
     public void setUsers(List<VKApiUserFull> users) {
         this.users = users;
+    }
+
+    public void setOnUserClickListener(OnUserClickListener userClickListener) {
+        this.userClickListener = userClickListener;
     }
 
     private void notifyOnUserClicked(VKApiUserFull user) {

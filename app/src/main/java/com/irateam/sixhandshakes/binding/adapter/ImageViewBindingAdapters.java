@@ -14,7 +14,7 @@ public final class ImageViewBindingAdapters {
     }
 
     @BindingAdapter("app:url")
-    public void bindURL(ImageView target, String url) {
+    public static void bindURL(ImageView target, String url) {
         ImageLoader.getInstance().displayImage(url, target);
     }
 

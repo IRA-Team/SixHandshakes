@@ -1,5 +1,6 @@
 package com.irateam.sixhandshakes.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +38,11 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnUserClickListener(user -> {
+            setResult(RESULT_OK, new Intent().putExtra("user", user));
+            finish();
+        });
     }
 
     @Override

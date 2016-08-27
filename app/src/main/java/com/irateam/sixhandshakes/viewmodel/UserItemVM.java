@@ -13,7 +13,7 @@ public class UserItemVM {
 
     public UserItemVM(VKApiUserFull user) {
         id.set(user.id);
-        fullName.set(user.first_name + " " + user.screen_name);
+        fullName.set(user.first_name + " " + user.last_name);
         photoURL.set(user.photo_100);
     }
 }
